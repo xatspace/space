@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LunitaLuzBrillante - Premium</title>
+     <link rel="apple-touch-icon" type="image/png" href="https://xatimg.com/image/1En4wG8Bmb5S.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --accent: #ff85a2;
+            --glow: #f72585;
+            --bg-glass: rgba(15, 0, 25, 0.85);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; width: 100vw;
+            background: radial-gradient(circle at center, #1a0033 0%, #000000 100%);
+            font-family: 'Quicksand', sans-serif;
+            color: white; overflow: hidden; padding: 15px;
+        }
+
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.4; animation: twinkle var(--duration) infinite; z-index: 1; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        .neon-border-box {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            padding: 3px;
+            border-radius: 32px;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .neon-border-box::before {
+            content: '';
+            position: absolute;
+            width: 150%; height: 150%;
+            top: -25%; left: -25%;
+            background: conic-gradient(transparent, transparent, transparent, var(--accent), var(--glow));
+            animation: rotateBorder 4s linear infinite;
+        }
+
+        @keyframes rotateBorder { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .player-glass {
+            background: var(--bg-glass);
+            backdrop-filter: blur(30px);
+            border-radius: 30px;
+            width: 100%;
+            display: flex;
+            padding: 25px;
+            gap: 20px;
+            position: relative;
+            z-index: 11;
+        }
+
+        .left-side {
+            width: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid rgba(255, 133, 162, 0.2);
+            padding-right: 20px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .couple-gif {
+            width: 130px; height: 130px;
+            background: url('https://xatimg.com/image/G1JFWpXRE2Ps.gif') no-repeat center;
+            background-size: contain;
+            filter: drop-shadow(0 0 10px var(--glow));
+            margin-bottom: 15px; z-index: 5;
+        }
+
+        .back-heart {
+            position: absolute; color: var(--accent); pointer-events: none;
+            z-index: 2; font-size: 18px; top: 40%; left: 45%;
+            animation: floatUp 2.5s ease-out forwards; opacity: 0;
+            text-shadow: 0 0 5px var(--glow);
+        }
+        @keyframes floatUp { 0% { transform: translate(0, 0) scale(0.5); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate(var(--x), -120px) scale(1.5); opacity: 0; } }
+
+        .time-box {
+            text-align: center; background: rgba(0, 0, 0, 0.4);
+            padding: 8px 10px; border-radius: 12px;
+            border: 1px solid rgba(255, 133, 162, 0.1);
+            width: 100%;
+        }
+        #current-date { font-size: 0.6rem; color: var(--accent); font-weight: 700; text-transform: uppercase; }
+        #current-time { font-size: 1rem; font-weight: 700; color: white; display: block; }
+
+        .right-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        h1 { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 2.1rem;
+            color: var(--accent); 
+            text-shadow: 0 0 10px rgba(247, 37, 133, 0.5); 
+            margin-bottom: 12px;
+            white-space: nowrap;
+        }
+
+        .music-info {
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px; border-radius: 18px; margin-bottom: 15px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .vinilo {
+            width: 65px; height: 65px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            overflow: hidden; flex-shrink: 0;
+            background: #111;
+        }
+        .vinilo img { width: 100%; height: 100%; object-fit: cover; animation: rotateDisk 12s linear infinite; animation-play-state: paused; }
+        .playing .vinilo img { animation-play-state: running; }
+        @keyframes rotateDisk { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .text-data { 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            flex: 1;
+        }
+        
+        #track-title { 
+            font-weight: 700; font-size: 0.9rem; color: #fff; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+        #artist-name { 
+            font-size: 0.75rem; color: var(--accent); opacity: 0.8; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+        }
+
+        .controls { display: flex; align-items: center; gap: 10px; width: 100%; }
+
+        .btn-play {
+            background: var(--accent); border: none; width: 42px; height: 42px;
+            border-radius: 50%; color: white; cursor: pointer;
+            box-shadow: 0 0 10px var(--glow); flex-shrink: 0;
+        }
+
+        #vol-control { 
+            flex: 1; 
+            accent-color: var(--accent); 
+            cursor: pointer; 
+            height: 4px; 
+            min-width: 50px;
+        }
+
+        .listeners { font-size: 0.6rem; margin-top: 12px; opacity: 0.5; display: flex; justify-content: space-between; }
+
+        @media (max-width: 550px) {
+            .player-glass { flex-direction: column; align-items: center; padding: 20px; }
+            .left-side { border-right: none; border-bottom: 1px solid rgba(255, 133, 162, 0.2); padding-right: 0; padding-bottom: 15px; width: 100%; }
+            .right-side { width: 100%; text-align: center; padding-top: 10px; }
+            .music-info { justify-content: center; }
+            h1 { font-size: 1.8rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stars"></div>
+
+    <div class="neon-border-box">
+        <div class="player-glass" id="player-container">
+            <div class="left-side" id="side-left">
+                <div class="couple-gif"></div>
+                <div class="time-box">
+                    <span id="current-date">---</span>
+                    <span id="current-time">00:00:00</span>
+                </div>
+            </div>
+
+            <div class="right-side">
+                <h1>LunitaLuzBrillante</h1>
+                <div class="music-info">
+                    <div class="vinilo">
+                        <img id="album-art" src="https://xatimg.com/image/qT6FOgslLfVa.png" alt="Cover">
+                    </div>
+                    <div class="text-data">
+                        <span id="track-title">Sintonizando...</span>
+                        <span id="artist-name">Radio En Vivo</span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn-play" id="btn-toggle">
+                        <i class="fas fa-play" id="play-icon"></i>
+                    </button>
+                    <input type="range" id="vol-control" min="0" max="1" step="0.01" value="0.8">
+                </div>
+
+                <div class="listeners">
+                    <span><i class="fas fa-circle" style="color:#00ff00; font-size:7px"></i> ONLINE</span>
+                    <span><i class="fas fa-users"></i> <span id="listener-count">0</span> OYENTES</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="radio-audio" src="https://technoplayerserver.net:8242/;" autoplay></audio>
+
+    <script>
+        const audio = document.getElementById('radio-audio');
+        const playBtn = document.getElementById('btn-toggle');
+        const icon = document.getElementById('play-icon');
+        const player = document.getElementById('player-container');
+        const cover = document.getElementById('album-art');
+        const sideLeft = document.getElementById('side-left');
+        const DEFAULT_ART = "https://xatimg.com/image/qT6FOgslLfVa.png";
+
+        let heartInterval;
+
+        function updateClock() {
+            const now = new Date();
+            const dateOptions = { weekday: 'long', day: 'numeric', month: 'short' };
+            document.getElementById('current-date').innerText = now.toLocaleDateString('es-ES', dateOptions);
+            document.getElementById('current-time').innerText = now.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+        }
+        setInterval(updateClock, 1000); updateClock();
+
+        function spawnBackHeart() {
+            if (audio.paused) return;
+            const h = document.createElement('i');
+            h.className = 'fas fa-heart back-heart';
+            h.style.setProperty('--x', (Math.random() - 0.5) * 100 + 'px');
+            sideLeft.appendChild(h);
+            setTimeout(() => h.remove(), 2500);
+        }
+
+        function playRadio() {
+            audio.play().then(() => {
+                icon.className = 'fas fa-pause';
+                player.classList.add('playing');
+                if(!heartInterval) heartInterval = setInterval(spawnBackHeart, 450);
+            }).catch(error => {
+                console.log("Esperando interacción del usuario para reproducir...");
+            });
+        }
+
+        // Intentar autoplay al cargar
+        window.addEventListener('load', playRadio);
+
+        // Si falla el autoplay, iniciar al primer clic en cualquier parte
+        document.body.addEventListener('click', () => {
+            if (audio.paused) playRadio();
+        }, { once: true });
+
+        playBtn.onclick = (e) => {
+            e.stopPropagation(); // Evita el disparador del body
+            if (audio.paused) {
+                playRadio();
+            } else {
+                audio.pause();
+                icon.className = 'fas fa-play';
+                player.classList.remove('playing');
+                clearInterval(heartInterval);
+                heartInterval = null;
+            }
+        };
+
+        document.getElementById('vol-control').oninput = (e) => audio.volume = e.target.value;
+
+        async function fetchCover(artist, track) {
+            try {
+                const url = `https://itunes.apple.com/search?term=${encodeURIComponent(artist + ' ' + track)}&entity=song&limit=1`;
+                const res = await fetch(url);
+                const data = await res.json();
+                if (data.results && data.results[0]) return data.results[0].artworkUrl100.replace('100x100', '400x400');
+            } catch (e) {}
+            return DEFAULT_ART;
+        }
+
+        async function getRadioInfo() {
+            try {
+                const r = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://technoplayerserver.net:8242/stats?json=1')}&t=${Date.now()}`);
+                const d = await r.json();
+                const s = JSON.parse(d.contents);
+                if (s.songtitle) {
+                    const parts = s.songtitle.split(' - ');
+                    const artist = (parts[0] || "").trim();
+                    const song = (parts[1] || s.songtitle).trim();
+                    if (document.getElementById('track-title').innerText !== song) {
+                        document.getElementById('track-title').innerText = song;
+                        document.getElementById('artist-name').innerText = artist || "Radio En Vivo";
+                        const imgUrl = await fetchCover(artist, song);
+                        cover.src = imgUrl;
+                    }
+                    document.getElementById('listener-count').innerText = s.uniquelisteners;
+                }
+            } catch (e) {}
+        }
+        setInterval(getRadioInfo, 10000); getRadioInfo();
+
+        for (let i = 0; i < 40; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            s.style.left = Math.random() * 100 + 'vw'; s.style.top = Math.random() * 100 + 'vh';
+            s.style.width = s.style.height = Math.random() * 2 + 'px';
+            s.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            document.body.appendChild(s);
+        }
+    </script>
+</body>
+</html>
