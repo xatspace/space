@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lunita 🌙</title>
-	<LINK REL="SHORTCUT ICON" href="https://xatimg.com/image/5AgY5huKquKQ.png">
+    <link rel="shortcut icon" href="https://xatimg.com/image/5AgY5huKquKQ.png">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -26,7 +26,6 @@
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        /* CORAZONES FLOTANTES */
         .heart {
             position: absolute; color: #ffb6c1; font-size: 22px;
             pointer-events: none; z-index: 11;
@@ -38,15 +37,14 @@
             100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
         }
 
-        /* CABECERA */
         header { 
-            text-align: center; padding: 10px 0 5px; z-index: 20; 
+            text-align: center; padding: 20px 0 10px; z-index: 20; 
             display: flex; flex-direction: column; align-items: center;
         }
-        .title-wrapper { display: flex; align-items: center; gap: 12px; }
+        .title-wrapper { display: flex; align-items: center; gap: 15px; }
         
         .header-moon {
-            width: 40px; height: 40px;
+            width: 45px; height: 45px;
             filter: drop-shadow(0 0 10px #ffb6c1);
             animation: moonGlow 3s infinite alternate;
         }
@@ -58,102 +56,85 @@
 
         header h1 {
             font-family: 'Dancing Script', cursive;
-            color: #fff; font-size: 2.8rem; margin: 0;
+            color: #fff; font-size: 3rem; margin: 0;
             text-shadow: 0 0 20px #ffb6c1;
         }
         #reloj {
-            color: #ffb6c1; font-size: 0.8rem; font-weight: 300;
+            color: #ffb6c1; font-size: 0.9rem; font-weight: 300;
             text-shadow: 0 0 5px #ffb6c1;
             background: rgba(255, 255, 255, 0.05);
-            padding: 4px 10px; border-radius: 20px;
-            margin-left: 10px; border: 1px solid rgba(255, 182, 193, 0.2);
+            padding: 5px 15px; border-radius: 20px;
+            margin-top: 10px; border: 1px solid rgba(255, 182, 193, 0.2);
         }
 
-        nav { display: flex; justify-content: center; gap: 40px; background: rgba(255, 255, 255, 0.05); padding: 8px; z-index: 20; }
+        nav { display: flex; justify-content: center; gap: 40px; background: rgba(255, 255, 255, 0.05); padding: 10px; z-index: 20; }
         .menu-btn {
             background: none; border: none; color: #ffb6c1;
-            padding: 5px 15px; cursor: pointer; font-size: 1rem;
+            padding: 5px 15px; cursor: pointer; font-size: 1.1rem;
             font-weight: 600; transition: 0.3s;
         }
         .menu-btn:hover, .menu-btn.active { color: #fff; text-shadow: 0 0 10px #fff; }
 
-        .content { flex-grow: 1; padding: 10px; color: white; z-index: 20; position: relative; display: flex; flex-direction: column; }
-        
+        .content { flex-grow: 1; padding: 20px; color: white; z-index: 20; display: flex; flex-direction: column; align-items: center; }
         .section { display: none; flex-grow: 1; width: 100%; flex-direction: column; align-items: center; justify-content: center; }
-        .section.active { display: flex; animation: fadeIn 1s ease; }
+        .section.active { display: flex; animation: fadeIn 0.8s ease; }
 
         .neon-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem; color: #fff;
+            font-size: 2rem; color: #fff;
             text-shadow: 0 0 10px #ffb6c1, 0 0 30px #ff69b4;
-            animation: neonPulse 2.5s infinite alternate;
-            margin: 0 0 10px 0;
-        }
-
-        @keyframes neonPulse {
-            from { opacity: 1; text-shadow: 0 0 15px #ffb6c1, 0 0 40px #ff69b4; }
-            to { opacity: 0.6; text-shadow: 0 0 5px #ffb6c1; }
+            margin: 0 0 20px 0; text-align: center;
         }
 
         .moon-photo-container {
-            width: 450px; 
-            height: 250px; 
-            border-radius: 25px; 
-            border: 3px solid #ffb6c1;
+            width: 450px; height: 250px; 
+            border-radius: 25px; border: 3px solid #ffb6c1;
             box-shadow: 0 0 30px rgba(255, 182, 193, 0.6);
-            overflow: hidden; 
-            display: flex;
+            overflow: hidden;
         }
         .moon-photo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* MÚSICA - SIN MARCO BLANCO */
         .video-glow-box {
-            padding: 0; /* Eliminado el padding para que el video ajuste al borde */
-            background: none;
-            border-radius: 20px; 
-            border: 2px solid #ffb6c1;
+            border-radius: 20px; border: 2px solid #ffb6c1;
             box-shadow: 0 0 25px rgba(255, 182, 193, 0.4);
-            overflow: hidden; /* Asegura que el video siga la redondez del borde */
-            line-height: 0; /* Quita espacios residuales debajo del iframe */
+            overflow: hidden; line-height: 0;
         }
 
-        /* SLIDER */
+        /* SLIDER REPARADO */
         .slider-container {
             position: relative; width: 500px; height: 300px;
             border-radius: 20px; overflow: hidden;
             border: 2px solid #ffb6c1;
             box-shadow: 0 0 20px rgba(255, 182, 193, 0.4);
         }
-        .slides { display: flex; width: 500%; height: 100%; transition: transform 0.8s ease-in-out; }
+        .slides { display: flex; width: 500%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         .slide { width: 20%; height: 100%; }
         .slide img { width: 100%; height: 100%; object-fit: cover; }
 
         .arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5); border: 1px solid #ffb6c1;
-            color: #ffb6c1; font-size: 1.2rem; width: 40px; height: 40px;
-            cursor: pointer; border-radius: 50%; transition: 0.4s; z-index: 100;
+            background: rgba(0, 0, 0, 0.6); border: 1px solid #ffb6c1;
+            color: #ffb6c1; font-size: 1.5rem; width: 45px; height: 45px;
+            cursor: pointer; border-radius: 50%; transition: 0.3s; z-index: 100;
+            display: flex; align-items: center; justify-content: center;
         }
         .arrow:hover { background: #ffb6c1; color: #fff; }
-        .prev { left: 10px; } .next { right: 10px; }
-
-        .visitor-counter { padding: 5px 0; text-align: center; z-index: 30; }
+        .prev { left: 15px; } .next { right: 15px; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
-<body onclick="activarMusica()">
+<body>
 
     <canvas id="starCanvas"></canvas>
 
     <div class="main-container" id="mainContainer">
-        
         <header>
             <div class="title-wrapper">
                 <img src="https://xatimg.com/image/5AgY5huKquKQ.png" class="header-moon" alt="Luna">
                 <h1>✦و̶̶̵͜͡x𝐋𝛍𝛈𝒊𝛕𝛂</h1>
-                <div id="reloj">Cargando fecha...</div>
             </div>
+            <div id="reloj">Cargando fecha...</div>
         </header>
 
         <nav>
@@ -172,10 +153,9 @@
 
             <div id="musica" class="section">
                 <div class="video-glow-box">
-                    <iframe id="yt-video" width="480" height="260" 
-                        src="https://www.youtube.com/embed/5SqxM864Fy8?autoplay=1&rel=0" 
-                        style="border:none;"
-                        allow="autoplay; encrypted-media">
+                    <iframe id="yt-video" width="480" height="270" 
+                        src="https://www.youtube.com/embed/5SqxM864Fy8?enablejsapi=1" 
+                        style="border:none;" allow="autoplay; encrypted-media">
                     </iframe>
                 </div>
             </div>
@@ -194,43 +174,33 @@
                 </div>
             </div>
         </div>
-
-        
     </div>
 
     <script>
+        // Reloj
         function actualizarReloj() {
             const ahora = new Date();
             const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             const fechaStr = ahora.toLocaleDateString('es-ES', opciones);
             const horaStr = ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            const fechaFinal = fechaStr.charAt(0).toUpperCase() + fechaStr.slice(1);
-            document.getElementById('reloj').innerHTML = `${fechaFinal} | ${horaStr}`;
+            document.getElementById('reloj').innerHTML = `${fechaStr.charAt(0).toUpperCase() + fechaStr.slice(1)} | ${horaStr}`;
         }
         setInterval(actualizarReloj, 1000);
         actualizarReloj();
 
+        // Corazones
         const container = document.getElementById('mainContainer');
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
             heart.innerHTML = '❤';
             heart.style.left = Math.random() * 750 + 'px';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
             container.appendChild(heart);
             setTimeout(() => { heart.remove(); }, 4000);
         }
         setInterval(createHeart, 600);
 
-        let musicStarted = false;
-        function activarMusica() {
-            if (!musicStarted) {
-                const vid = document.getElementById('yt-video');
-                vid.src = vid.src.replace("mute=1", "mute=0");
-                musicStarted = true;
-            }
-        }
-
+        // Secciones
         function showSection(id, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
@@ -238,6 +208,7 @@
             btn.classList.add('active');
         }
 
+        // Slider Reparado
         let currentSlide = 0;
         const track = document.getElementById('slideTrack');
         function moveSlide(dir) {
@@ -246,8 +217,8 @@
             if (currentSlide < 0) currentSlide = 4;
             track.style.transform = `translateX(-${currentSlide * 20}%)`;
         }
-        setInterval(() => moveSlide(1), 4000);
 
+        // Estrellas de fondo
         const canvas = document.getElementById('starCanvas');
         const ctx = canvas.getContext('2d');
         let stars = [];
