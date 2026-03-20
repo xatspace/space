@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XatSpace Lucas - Edición Premium</title>
+	<LINK REL="SHORTCUT ICON" href="https://xatimg.com/image/efqcpwxdWtTJ.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -17,6 +19,8 @@
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             overflow: hidden;
+            cursor: pointer;
+            position: relative;
         }
 
         @keyframes gradientBG {
@@ -25,6 +29,32 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* --- NIEVE --- */
+        .snow-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { top: -5vh; transform: translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 105vh; transform: translateX(30px); opacity: 0; }
+        }
+
+        /* --- PANEL --- */
         .glass-panel {
             background: rgba(255, 255, 255, 0.02);
             border-radius: 30px;
@@ -36,6 +66,8 @@
             max-width: 900px;
             width: 90%;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
 
         .header-container {
@@ -46,13 +78,8 @@
             margin-bottom: 20px;
         }
 
-        .felix-photo {
-            height: 110px;
-            width: auto;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
-        }
+        .felix-photo { height: 110px; width: auto; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); }
 
-        /* NOMBRE LUCAS (SIN TOCAR) */
         .name-wave {
             font-family: 'Cinzel Decorative', serif;
             font-size: 72px;
@@ -74,67 +101,155 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- FRASE PULIDA Y ESPECTACULAR --- */
-        .phrase-container {
-            margin-top: 10px;
-            position: relative;
-        }
-
         .inspirational-phrase {
             font-family: 'Cormorant Garamond', serif;
             font-size: 28px;
             font-style: italic;
             font-weight: 600;
-            /* Color base con un toque de luz */
             color: #ffffff;
             letter-spacing: 1.5px;
-            /* Efecto de texto iluminado */
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 
-                         2px 2px 4px rgba(0, 0, 0, 0.9);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 2px 2px 4px rgba(0, 0, 0, 0.9);
             opacity: 0.95;
             animation: textGlow 4s ease-in-out infinite alternate;
         }
 
-        /* Animación de brillo suave para la frase */
         @keyframes textGlow {
             from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.9); }
             to { text-shadow: 0 0 20px rgba(79, 172, 254, 0.6), 2px 2px 4px rgba(0, 0, 0, 0.9); }
         }
 
-        /* Líneas decorativas a los lados de la frase */
-        .phrase-container::before, .phrase-container::after {
-            content: "";
-            display: inline-block;
-            width: 50px;
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-            vertical-align: middle;
-            margin: 0 15px;
+        /* --- PLAYER CONTROLS --- */
+        .audio-controls {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 25px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            z-index: 100;
         }
 
+        .audio-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        /* COLOR CELESTE PARA ACTIVOS */
+        .active-icon { color: #4facfe !important; text-shadow: 0 0 10px rgba(79, 172, 254, 0.5); }
+
         @media (max-width: 700px) {
-            .header-container { flex-direction: column; gap: 10px; }
             .name-wave { font-size: 50px; }
-            .felix-photo { height: 80px; }
             .inspirational-phrase { font-size: 20px; }
-            .phrase-container::before, .phrase-container::after { width: 30px; }
+            .felix-photo { height: 80px; }
         }
     </style>
 </head>
-<body>
+<body onclick="handleFirstClick()">
+
+    <div class="snow-container" id="snow-container"></div>
 
     <div class="glass-panel">
-        
         <div class="header-container">
             <img src="https://xatimg.com/image/efqcpwxdWtTJ.png" alt="Félix" class="felix-photo">
             <h1 class="name-wave">LUCAS</h1>
         </div>
-
-        <div class="phrase-container">
-            <p class="inspirational-phrase">"Sé la Luz Brillante en la Tormenta de Alguien"</p>
-        </div>
-
+        <p class="inspirational-phrase">"Sé la Luz Brillante en la Tormenta de Alguien"</p>
     </div>
 
+    <div class="audio-controls">
+        <button class="audio-btn" onclick="togglePlay(event)">
+            <i class="fas fa-play" id="play-icon"></i>
+        </button>
+        <button class="audio-btn" onclick="toggleMute(event)">
+            <i class="fas fa-volume-up" id="volume-icon"></i>
+        </button>
+    </div>
+
+    <audio id="main-audio" loop>
+        <source src="https://xatspace.github.io/space/lucas/JosephWeightmanMaybe.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // NIEVE
+        function createSnowflake() {
+            const container = document.getElementById('snow-container');
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            const size = Math.random() * 3 + 1 + 'px';
+            snowflake.style.width = size;
+            snowflake.style.height = size;
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            const duration = Math.random() * 6 + 4 + 's';
+            snowflake.style.animationDuration = duration;
+            container.appendChild(snowflake);
+            setTimeout(() => snowflake.remove(), parseFloat(duration) * 1000);
+        }
+        setInterval(createSnowflake, 120);
+
+        // AUDIO LOGIC
+        const audio = document.getElementById('main-audio');
+        const playIcon = document.getElementById('play-icon');
+        const volumeIcon = document.getElementById('volume-icon');
+        let interactionDone = false;
+
+        function handleFirstClick() {
+            if (!interactionDone) {
+                audio.play();
+                interactionDone = true;
+                updateIcons();
+            }
+        }
+
+        function togglePlay(e) {
+            e.stopPropagation();
+            if (audio.paused) audio.play(); else audio.pause();
+            updateIcons();
+        }
+
+        function toggleMute(e) {
+            e.stopPropagation();
+            audio.muted = !audio.muted;
+            updateIcons();
+        }
+
+        function updateIcons() {
+            // Update Play/Pause Icon
+            if (audio.paused) {
+                playIcon.className = "fas fa-play";
+                playIcon.classList.remove('active-icon');
+            } else {
+                playIcon.className = "fas fa-pause";
+                playIcon.classList.add('active-icon');
+            }
+
+            // Update Volume Icon
+            if (audio.muted) {
+                volumeIcon.className = "fas fa-volume-mute";
+                volumeIcon.classList.remove('active-icon');
+            } else {
+                volumeIcon.className = "fas fa-volume-up";
+                // Solo se pone celeste si está sonando y NO está muteado
+                if (!audio.paused) volumeIcon.classList.add('active-icon');
+                else volumeIcon.classList.remove('active-icon');
+            }
+        }
+
+        window.onload = () => {
+            audio.play().then(() => {
+                interactionDone = true;
+                updateIcons();
+            }).catch(() => console.log("Esperando click..."));
+        };
+    </script>
 </body>
 </html>
