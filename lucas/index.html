@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XatSpace Lucas - Edición Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #020111 0%, #0c0a25 35%, #051937 60%, #00234a 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 30px;
+            padding: 60px 40px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .felix-photo {
+            height: 110px;
+            width: auto;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        }
+
+        /* NOMBRE LUCAS (SIN TOCAR) */
+        .name-wave {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 72px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background-size: 400% 400%;
+            animation: namewave 6s ease infinite;
+            background-image: linear-gradient(-45deg, #00f2fe, #4facfe, #ee0979, #ff6a00, #00f2fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes namewave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- FRASE PULIDA Y ESPECTACULAR --- */
+        .phrase-container {
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .inspirational-phrase {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-style: italic;
+            font-weight: 600;
+            /* Color base con un toque de luz */
+            color: #ffffff;
+            letter-spacing: 1.5px;
+            /* Efecto de texto iluminado */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 
+                         2px 2px 4px rgba(0, 0, 0, 0.9);
+            opacity: 0.95;
+            animation: textGlow 4s ease-in-out infinite alternate;
+        }
+
+        /* Animación de brillo suave para la frase */
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.9); }
+            to { text-shadow: 0 0 20px rgba(79, 172, 254, 0.6), 2px 2px 4px rgba(0, 0, 0, 0.9); }
+        }
+
+        /* Líneas decorativas a los lados de la frase */
+        .phrase-container::before, .phrase-container::after {
+            content: "";
+            display: inline-block;
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            vertical-align: middle;
+            margin: 0 15px;
+        }
+
+        @media (max-width: 700px) {
+            .header-container { flex-direction: column; gap: 10px; }
+            .name-wave { font-size: 50px; }
+            .felix-photo { height: 80px; }
+            .inspirational-phrase { font-size: 20px; }
+            .phrase-container::before, .phrase-container::after { width: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-panel">
+        
+        <div class="header-container">
+            <img src="https://xatimg.com/image/efqcpwxdWtTJ.png" alt="Félix" class="felix-photo">
+            <h1 class="name-wave">LUCAS</h1>
+        </div>
+
+        <div class="phrase-container">
+            <p class="inspirational-phrase">"Sé la Luz Brillante en la Tormenta de Alguien"</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
