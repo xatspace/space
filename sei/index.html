@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XatSpace Sei | Lucas</title>
+    <link rel="SHORTCUT ICON" href="https://xatimg.com/image/efqcpwxdWtTJ.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a0a1a 0%, #3d1a3d 35%, #5e2a5e 60%, #2e0a2e 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- LLUVIA DE CORAZONES FONDO --- */
+        .heart-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ffb6c1;
+            font-size: 20px;
+            animation: fall linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% { top: -10%; transform: translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            80% { opacity: 0.6; }
+            100% { top: 100%; transform: translateX(50px) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- PANEL --- */
+        .glass-panel {
+            background: rgba(255, 182, 193, 0.05);
+            border-radius: 30px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 192, 203, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .name-wave {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 55px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background-size: 400% 400%;
+            animation: namewave 6s ease infinite;
+            background-image: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1, #ee9ca7, #ff9a9e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+        }
+
+        /* --- CONTENEDOR GIF CON CORAZONES BROTANDO --- */
+        .gif-wrapper {
+            position: relative;
+            width: 228px;
+            height: 400px;
+            margin: 20px auto;
+            /* Quitamos el overflow hidden para que se vean los corazones salir */
+        }
+
+        .gif-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            padding: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 15px #ffb6c1, 0 0 30px #ffb6c1;
+            border: 2px solid #ffb6c1;
+            z-index: 5; /* Asegura que el GIF esté al frente */
+            overflow: hidden; /* El recorte solo afecta al GIF interno */
+        }
+
+        .gif-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* CORAZONES ROJOS BROTANDO */
+        .red-heart-burst {
+            position: absolute;
+            color: #ff0000;
+            text-shadow: 0 0 8px #ff0000;
+            z-index: 2; /* Por detrás del marco neón */
+            pointer-events: none;
+            font-size: 24px;
+            top: 50%;
+            left: 50%;
+            animation: burstOut 2.5s ease-out forwards;
+        }
+
+        @keyframes burstOut {
+            0% { 
+                transform: translate(-50%, -50%) scale(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            20% { 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        .inspirational-phrase {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-style: italic;
+            color: #ffffff;
+            margin-top: 15px;
+            text-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
+        }
+
+        .audio-controls {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 182, 193, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+        }
+
+        .audio-btn {
+            background: none; border: none; color: #ffb6c1;
+            cursor: pointer; font-size: 24px; transition: all 0.3s ease;
+        }
+
+        .active-icon { color: #ffffff !important; text-shadow: 0 0 10px #ffb6c1; }
+
+        @media (max-width: 700px) {
+            .name-wave { font-size: 40px; }
+            .gif-wrapper { width: 180px; height: 315px; }
+        }
+    </style>
+</head>
+<body onclick="handleFirstClick()">
+
+    <div class="heart-container" id="heart-container"></div>
+
+    <div class="glass-panel">
+        <h1 class="name-wave">SEIఌ</h1>
+        
+        <div class="gif-wrapper" id="gif-wrap">
+            <div class="gif-container">
+                <img src="https://xatimg.com/image/o3Ud7YNkxjld.gif" alt="Sei GIF">
+            </div>
+        </div>
+
+        <p class="inspirational-phrase">"Sé la Luz Brillante en la Tormenta de Alguien"</p>
+    </div>
+
+    <div class="audio-controls">
+        <button class="audio-btn" onclick="togglePlay(event)">
+            <i class="fas fa-play" id="play-icon"></i>
+        </button>
+    </div>
+
+    <audio id="main-audio" loop>
+        <source src="https://xatspace.github.io/space/lucas/JosephWeightmanMaybe.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // CORAZONES FONDO (ROSADOS)
+        function createHeart() {
+            const container = document.getElementById('heart-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            const leftPos = Math.random() * 100;
+            const duration = Math.random() * 5 + 5;
+            const size = Math.random() * 15 + 10;
+            heart.style.left = leftPos + 'vw';
+            heart.style.fontSize = size + 'px';
+            heart.style.animationDuration = duration + 's';
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+        setInterval(createHeart, 300);
+
+        // CORAZONES ROJOS BROTANDO DEL GIF
+        function burstHeart() {
+            const wrap = document.getElementById('gif-wrap');
+            const heart = document.createElement('div');
+            heart.classList.add('red-heart-burst');
+            heart.innerHTML = '❤';
+            
+            // Direcciones aleatorias para que salgan disparados hacia afuera
+            const tx = (Math.random() - 0.5) * 400 + 'px';
+            const ty = (Math.random() - 0.5) * 600 + 'px';
+            heart.style.setProperty('--tx', tx);
+            heart.style.setProperty('--ty', ty);
+            
+            // Insertar antes del gif-container para que queden "atrás"
+            wrap.insertBefore(heart, wrap.firstChild);
+            
+            setTimeout(() => heart.remove(), 2500);
+        }
+        // Frecuencia de brote
+        setInterval(burstHeart, 200);
+
+        // AUDIO LOGIC
+        const audio = document.getElementById('main-audio');
+        const playIcon = document.getElementById('play-icon');
+        let interactionDone = false;
+
+        function handleFirstClick() {
+            if (!interactionDone) {
+                audio.play();
+                interactionDone = true;
+                updateIcons();
+            }
+        }
+
+        function togglePlay(e) {
+            e.stopPropagation();
+            if (audio.paused) audio.play(); else audio.pause();
+            updateIcons();
+        }
+
+        function updateIcons() {
+            if (audio.paused) {
+                playIcon.className = "fas fa-play";
+                playIcon.classList.remove('active-icon');
+            } else {
+                playIcon.className = "fas fa-pause";
+                playIcon.classList.add('active-icon');
+            }
+        }
+
+        window.onload = () => {
+            audio.play().then(() => {
+                interactionDone = true;
+                updateIcons();
+            }).catch(() => console.log("Interacción requerida"));
+        };
+    </script>
+</body>
+</html>
