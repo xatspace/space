@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sei  XatSpace | Lucas</title>
+    <title>Sei XatSpace | Lucas</title>
     <link rel="SHORTCUT ICON" href="https://xatimg.com/image/K0omsEWnsHvq.gif">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght=1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -108,7 +108,7 @@
         }
 
         .btn-camera { left: 25px; }
-        .btn-back { right: 25px; display: none; } /* Oculto al inicio */
+        .btn-back { right: 25px; display: none; }
         .panel-btn:hover { color: #fff; transform: scale(1.2); }
 
         .name-wave {
@@ -133,7 +133,6 @@
             margin: 20px auto;
         }
 
-        /* ESTILO COMÚN CONTENEDORES */
         .content-wrap {
             position: absolute;
             top: 0; left: 0;
@@ -147,24 +146,15 @@
             transition: opacity 0.5s ease;
         }
 
-        /* SLIDER DE FOTOS */
         #slider-container { opacity: 0; pointer-events: none; }
         .slides {
             display: flex;
             width: 100%; height: 100%;
             transition: transform 0.5s ease-in-out;
         }
-        .slide {
-            min-width: 100%;
-            height: 100%;
-        }
-        .slide img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-        }
+        .slide { min-width: 100%; height: 100%; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
 
-        /* FLECHAS SLIDER */
         .slide-arrow {
             position: absolute;
             top: 50%;
@@ -180,10 +170,8 @@
         .arrow-prev { left: 10px; }
         .arrow-next { right: 10px; }
 
-        /* GIF ORIGINAL */
         #gif-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
 
-        /* CORAZONES BROTANDO */
         .red-heart-burst {
             position: absolute;
             color: #ff0000;
@@ -210,24 +198,34 @@
             text-shadow: 2px 2px 4px #000;
         }
 
-        /* REPRODUCTOR */
+        /* --- REPRODUCTOR CORREGIDO (FIJO) --- */
         .audio-controls {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
+            position: fixed; /* Esto lo deja clavado en la pantalla */
+            bottom: 30px;    /* Distancia desde abajo */
+            left: 50%;       /* Al centro */
+            transform: translateX(-50%); /* Ajuste para centrado perfecto */
+            z-index: 9999;   /* Por encima de todo */
         }
 
         .audio-btn {
-            background: rgba(0,0,0,0.7);
-            border: 1px solid rgba(255, 182, 193, 0.5);
+            background: rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 182, 193, 0.6);
             color: #ffb6c1;
             cursor: pointer;
-            font-size: 18px;
-            width: 45px; height: 45px;
+            font-size: 16px; /* Más chico */
+            width: 40px;      /* Más chico */
+            height: 40px;     /* Más chico */
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.1);
+            border-color: #ffb6c1;
         }
 
         @media (max-width: 800px) {
@@ -258,14 +256,14 @@
             </div>
 
             <div class="content-wrap" id="slider-container">
-                <button class="slide-arrow arrow-prev" onclick="moveSlide(-1)">&#10094;</button>
+                <button class="slide-arrow arrow-prev" onclick="moveSlide(-1, event)">&#10094;</button>
                 <div class="slides" id="slides">
                     <div class="slide"><img src="https://xatimg.com/image/Lt09OYxHagkT.png"></div>
                     <div class="slide"><img src="https://xatimg.com/image/uGiCmG3V5RiL.png"></div>
                     <div class="slide"><img src="https://xatimg.com/image/SyCTGo1LjptO.png"></div>
                     <div class="slide"><img src="https://xatimg.com/image/ZXvAOv6Sng6x.png"></div>
                 </div>
-                <button class="slide-arrow arrow-next" onclick="moveSlide(1)">&#10095;</button>
+                <button class="slide-arrow arrow-next" onclick="moveSlide(1, event)">&#10095;</button>
             </div>
         </div>
 
@@ -283,7 +281,6 @@
     </audio>
 
     <script>
-        // LÓGICA DE VISTAS (CAMARA / GIF)
         function toggleView(view) {
             const gif = document.getElementById('gif-container');
             const slider = document.getElementById('slider-container');
@@ -305,7 +302,6 @@
             }
         }
 
-        // LÓGICA DEL SLIDER
         let currentSlide = 0;
         const totalSlides = 4;
         const slidesElement = document.getElementById('slides');
@@ -314,19 +310,18 @@
             slidesElement.style.transform = `translateX(-${currentSlide * 100}%)`;
         }
 
-        function moveSlide(step) {
+        function moveSlide(step, e) {
+            if(e) e.stopPropagation();
             currentSlide = (currentSlide + step + totalSlides) % totalSlides;
             updateSlider();
         }
 
-        // Auto-slider cada 4 segundos
         setInterval(() => {
             if (document.getElementById('slider-container').style.opacity === '1') {
                 moveSlide(1);
             }
         }, 4000);
 
-        // Lluvia
         setInterval(() => {
             const container = document.getElementById('heart-container');
             const heart = document.createElement('div');
@@ -339,7 +334,6 @@
             setTimeout(() => heart.remove(), duration * 1000);
         }, 300);
 
-        // Burst rojo (Corazones brotando)
         setInterval(() => {
             const wrap = document.getElementById('media-box');
             const heart = document.createElement('div');
@@ -353,7 +347,6 @@
             setTimeout(() => heart.remove(), 2500);
         }, 250);
 
-        // Audio
         const audio = document.getElementById('main-audio');
         const playIcon = document.getElementById('play-icon');
         let interactionDone = false;
