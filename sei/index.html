@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XatSpace Sei | Lucas</title>
+    <title>Sei  XatSpace | Lucas</title>
     <link rel="SHORTCUT ICON" href="https://xatimg.com/image/K0omsEWnsHvq.gif">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght=1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             height: 100vh;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #1a0a1a 0%, #3d1a3d 35%, #5e2a5e 60%, #2e0a2e 100%);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
             overflow: hidden;
             cursor: pointer;
             position: relative;
+            background: linear-gradient(135deg, #1a0a1a 0%, #3d1a3d 35%, #5e2a5e 60%, #2e0a2e 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
         @keyframes gradientBG {
@@ -29,12 +30,38 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- LLUVIA DE CORAZONES FONDO --- */
+        /* FOTOS DE FONDO */
+        .bg-photos {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bg-photo-left {
+            position: absolute;
+            top: 0; left: 0; width: 50%; height: 100%;
+            background-image: url('https://xatimg.com/image/ZXvAOv6Sng6x.png');
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: contain;
+        }
+
+        .bg-photo-right {
+            position: absolute;
+            top: 0; right: 0; width: 50%; height: 100%;
+            background-image: url('https://xatimg.com/image/Ngfz9L8ntPV2.png');
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: contain;
+        }
+
+        /* LLUVIA DE CORAZONES */
         .heart-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 2;
         }
 
         .heart {
@@ -52,144 +79,193 @@
             100% { top: 100%; transform: translateX(50px) rotate(360deg); opacity: 0; }
         }
 
-        /* --- PANEL --- */
+        /* PANEL CENTRAL */
         .glass-panel {
-            background: rgba(255, 182, 193, 0.05);
+            background: rgba(0, 0, 0, 0.65);
             border-radius: 30px;
             padding: 40px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 192, 203, 0.2);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
-            max-width: 500px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+            max-width: 450px;
             width: 90%;
             text-align: center;
             position: relative;
-            z-index: 2;
+            z-index: 10;
         }
+
+        /* BOTONES DE CAMBIO */
+        .panel-btn {
+            position: absolute;
+            top: 20px;
+            font-size: 20px;
+            color: #ffb6c1;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 15;
+            text-shadow: 0 0 10px #ffb6c1;
+        }
+
+        .btn-camera { left: 25px; }
+        .btn-back { right: 25px; display: none; } /* Oculto al inicio */
+        .panel-btn:hover { color: #fff; transform: scale(1.2); }
 
         .name-wave {
             font-family: 'Cinzel Decorative', serif;
-            font-size: 55px;
+            font-size: 50px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 4px;
-            background-size: 400% 400%;
-            animation: namewave 6s ease infinite;
             background-image: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1, #ee9ca7, #ff9a9e);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-            margin-bottom: 20px;
+            text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
+            margin-bottom: 15px;
         }
 
-        /* --- CONTENEDOR GIF CON CORAZONES BROTANDO --- */
-        .gif-wrapper {
+        /* CONTENEDOR MULTIMEDIA */
+        .media-box {
             position: relative;
             width: 228px;
             height: 400px;
             margin: 20px auto;
-            /* Quitamos el overflow hidden para que se vean los corazones salir */
         }
 
-        .gif-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
+        /* ESTILO COMÚN CONTENEDORES */
+        .content-wrap {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             border-radius: 15px;
             padding: 5px;
-            background: rgba(0, 0, 0, 0.3);
-            box-shadow: 0 0 15px #ffb6c1, 0 0 30px #ffb6c1;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px #ffb6c1;
             border: 2px solid #ffb6c1;
-            z-index: 5; /* Asegura que el GIF esté al frente */
-            overflow: hidden; /* El recorte solo afecta al GIF interno */
+            overflow: hidden;
+            transition: opacity 0.5s ease;
         }
 
-        .gif-container img {
-            width: 100%;
+        /* SLIDER DE FOTOS */
+        #slider-container { opacity: 0; pointer-events: none; }
+        .slides {
+            display: flex;
+            width: 100%; height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
             height: 100%;
+        }
+        .slide img {
+            width: 100%; height: 100%;
             object-fit: cover;
             border-radius: 10px;
         }
 
-        /* CORAZONES ROJOS BROTANDO */
+        /* FLECHAS SLIDER */
+        .slide-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 20;
+            border-radius: 5px;
+        }
+        .arrow-prev { left: 10px; }
+        .arrow-next { right: 10px; }
+
+        /* GIF ORIGINAL */
+        #gif-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+
+        /* CORAZONES BROTANDO */
         .red-heart-burst {
             position: absolute;
             color: #ff0000;
-            text-shadow: 0 0 8px #ff0000;
-            z-index: 2; /* Por detrás del marco neón */
+            text-shadow: 0 0 10px #ff0000;
+            z-index: 2;
             pointer-events: none;
-            font-size: 24px;
-            top: 50%;
-            left: 50%;
+            font-size: 26px;
+            top: 50%; left: 50%;
             animation: burstOut 2.5s ease-out forwards;
         }
 
         @keyframes burstOut {
-            0% { 
-                transform: translate(-50%, -50%) scale(0) rotate(0deg); 
-                opacity: 0; 
-            }
-            20% { 
-                opacity: 1; 
-            }
-            100% { 
-                transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(360deg); 
-                opacity: 0; 
-            }
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; }
         }
 
         .inspirational-phrase {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
+            font-size: 20px;
             font-style: italic;
             color: #ffffff;
             margin-top: 15px;
-            text-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
+            text-shadow: 2px 2px 4px #000;
         }
 
+        /* REPRODUCTOR */
         .audio-controls {
             position: fixed;
-            bottom: 25px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            padding: 15px;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 182, 193, 0.4);
-            backdrop-filter: blur(5px);
             z-index: 100;
         }
 
         .audio-btn {
-            background: none; border: none; color: #ffb6c1;
-            cursor: pointer; font-size: 24px; transition: all 0.3s ease;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid rgba(255, 182, 193, 0.5);
+            color: #ffb6c1;
+            cursor: pointer;
+            font-size: 18px;
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .active-icon { color: #ffffff !important; text-shadow: 0 0 10px #ffb6c1; }
-
-        @media (max-width: 700px) {
-            .name-wave { font-size: 40px; }
-            .gif-wrapper { width: 180px; height: 315px; }
+        @media (max-width: 800px) {
+            .bg-photos { display: none; }
+            .name-wave { font-size: 35px; }
+            .media-box { width: 180px; height: 315px; }
         }
     </style>
 </head>
 <body onclick="handleFirstClick()">
 
+    <div class="bg-photos">
+        <div class="bg-photo-left"></div>
+        <div class="bg-photo-right"></div>
+    </div>
+
     <div class="heart-container" id="heart-container"></div>
 
     <div class="glass-panel">
+        <i class="fas fa-camera panel-btn btn-camera" onclick="toggleView('slider')"></i>
+        <i class="fas fa-reply panel-btn btn-back" id="btn-back" onclick="toggleView('gif')"></i>
+
         <h1 class="name-wave">SEIఌ</h1>
         
-        <div class="gif-wrapper" id="gif-wrap">
-            <div class="gif-container">
-                <img src="https://xatimg.com/image/l4zfYmwLskFf.gif" alt="Sei GIF">
+        <div class="media-box" id="media-box">
+            <div class="content-wrap" id="gif-container">
+                <img src="https://xatimg.com/image/o3Ud7YNkxjld.gif" alt="Sei GIF">
+            </div>
+
+            <div class="content-wrap" id="slider-container">
+                <button class="slide-arrow arrow-prev" onclick="moveSlide(-1)">&#10094;</button>
+                <div class="slides" id="slides">
+                    <div class="slide"><img src="https://xatimg.com/image/Lt09OYxHagkT.png"></div>
+                    <div class="slide"><img src="https://xatimg.com/image/Ngfz9L8ntPV2.png"></div>
+                    <div class="slide"><img src="https://xatimg.com/image/SyCTGo1LjptO.png"></div>
+                    <div class="slide"><img src="https://xatimg.com/image/ZXvAOv6Sng6x.png"></div>
+                </div>
+                <button class="slide-arrow arrow-next" onclick="moveSlide(1)">&#10095;</button>
             </div>
         </div>
 
@@ -203,49 +279,81 @@
     </div>
 
     <audio id="main-audio" loop>
-        <source src="https://xatspace.github.io/space/lucas/JosephWeightmanMaybe.mp3" type="audio/mpeg">
+        <source src="https://xatspace.github.io/space/sei/CarlaMorrisonDisfruto.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // CORAZONES FONDO (ROSADOS)
-        function createHeart() {
+        // LÓGICA DE VISTAS (CAMARA / GIF)
+        function toggleView(view) {
+            const gif = document.getElementById('gif-container');
+            const slider = document.getElementById('slider-container');
+            const btnCam = document.querySelector('.btn-camera');
+            const btnBack = document.getElementById('btn-back');
+
+            if (view === 'slider') {
+                gif.style.opacity = '0';
+                slider.style.opacity = '1';
+                slider.style.pointerEvents = 'auto';
+                btnCam.style.display = 'none';
+                btnBack.style.display = 'block';
+            } else {
+                gif.style.opacity = '1';
+                slider.style.opacity = '0';
+                slider.style.pointerEvents = 'none';
+                btnCam.style.display = 'block';
+                btnBack.style.display = 'none';
+            }
+        }
+
+        // LÓGICA DEL SLIDER
+        let currentSlide = 0;
+        const totalSlides = 4;
+        const slidesElement = document.getElementById('slides');
+
+        function updateSlider() {
+            slidesElement.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function moveSlide(step) {
+            currentSlide = (currentSlide + step + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        // Auto-slider cada 4 segundos
+        setInterval(() => {
+            if (document.getElementById('slider-container').style.opacity === '1') {
+                moveSlide(1);
+            }
+        }, 4000);
+
+        // Lluvia
+        setInterval(() => {
             const container = document.getElementById('heart-container');
             const heart = document.createElement('div');
             heart.classList.add('heart');
             heart.innerHTML = '❤';
-            const leftPos = Math.random() * 100;
+            heart.style.left = Math.random() * 100 + 'vw';
             const duration = Math.random() * 5 + 5;
-            const size = Math.random() * 15 + 10;
-            heart.style.left = leftPos + 'vw';
-            heart.style.fontSize = size + 'px';
             heart.style.animationDuration = duration + 's';
             container.appendChild(heart);
             setTimeout(() => heart.remove(), duration * 1000);
-        }
-        setInterval(createHeart, 300);
+        }, 300);
 
-        // CORAZONES ROJOS BROTANDO DEL GIF
-        function burstHeart() {
-            const wrap = document.getElementById('gif-wrap');
+        // Burst rojo (Corazones brotando)
+        setInterval(() => {
+            const wrap = document.getElementById('media-box');
             const heart = document.createElement('div');
             heart.classList.add('red-heart-burst');
             heart.innerHTML = '❤';
-            
-            // Direcciones aleatorias para que salgan disparados hacia afuera
-            const tx = (Math.random() - 0.5) * 400 + 'px';
-            const ty = (Math.random() - 0.5) * 600 + 'px';
+            const tx = (Math.random() - 0.5) * 450 + 'px';
+            const ty = (Math.random() - 0.5) * 650 + 'px';
             heart.style.setProperty('--tx', tx);
             heart.style.setProperty('--ty', ty);
-            
-            // Insertar antes del gif-container para que queden "atrás"
             wrap.insertBefore(heart, wrap.firstChild);
-            
             setTimeout(() => heart.remove(), 2500);
-        }
-        // Frecuencia de brote
-        setInterval(burstHeart, 200);
+        }, 250);
 
-        // AUDIO LOGIC
+        // Audio
         const audio = document.getElementById('main-audio');
         const playIcon = document.getElementById('play-icon');
         let interactionDone = false;
@@ -265,21 +373,8 @@
         }
 
         function updateIcons() {
-            if (audio.paused) {
-                playIcon.className = "fas fa-play";
-                playIcon.classList.remove('active-icon');
-            } else {
-                playIcon.className = "fas fa-pause";
-                playIcon.classList.add('active-icon');
-            }
+            playIcon.className = audio.paused ? "fas fa-play" : "fas fa-pause";
         }
-
-        window.onload = () => {
-            audio.play().then(() => {
-                interactionDone = true;
-                updateIcons();
-            }).catch(() => console.log("Interacción requerida"));
-        };
     </script>
 </body>
 </html>
