@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALOE | XatSpace</title>
-	<link rel="SHORTCUT ICON" href="https://xatimg.com/image/K0omsEWnsHvq.gif">
+    <title>ALOE XatSpace</title>
+		<link rel="SHORTCUT ICON" href="https://xatimg.com/image/K0omsEWnsHvq.gif">
+
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -18,29 +19,33 @@
             align-items: center;
             overflow: hidden;
             position: relative;
-            background: linear-gradient(135deg, #1a0a1a 0%, #3d1a3d 35%, #5e2a5e 60%, #2e0a2e 100%);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: #1a0a1a;
             font-family: 'Montserrat', sans-serif;
             cursor: pointer;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        /* --- IMAGEN DE FONDO (LÓGICA PC / MÓVIL) --- */
         .bg-photos {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1;
+            /* Imagen por defecto (PC - 1920x1080) */
             background-image: url('https://xatimg.com/image/aiJ20X8LT75e.jpg');
             background-size: cover;
             background-position: center;
             opacity: 0.8;
             pointer-events: none;
         }
+
+        /* Detecta si la pantalla es vertical (celulares) */
+        @media (max-width: 500px) or (orientation: portrait) {
+            .bg-photos {
+                /* ACA PONÉ EL LINK DE TU IMAGEN DE 1080x1920 */
+                background-image: url('https://xatimg.com/image/pU2VUMInUvTj.jpg');
+                background-position: center center;
+            }
+        }
+        /* ------------------------------------------- */
 
         .heart-container {
             position: absolute;
@@ -129,12 +134,11 @@
             100% { transform: translate(var(--tx), var(--ty)) scale(1.2); opacity: 0; }
         }
 
-        /* CONTENEDOR DE NOMBRE Y BANDERA */
         .user-info {
             display: flex;
             align-items: center;
             gap: 12px;
-            position: relative; /* Clave para los corazones brotantes */
+            position: relative;
         }
 
         .name-aloe {
@@ -144,24 +148,23 @@
             text-transform: uppercase;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
             line-height: 1;
-            position: relative; /* Para el z-index */
-            z-index: 2; /* Arriba de los corazones */
+            position: relative;
+            z-index: 2;
         }
 
         .flag-icon {
             width: 28px;
             height: auto;
             margin-top: 5px;
-            position: relative; /* Para el z-index */
-            z-index: 2; /* Arriba de los corazones */
+            position: relative;
+            z-index: 2;
         }
 
-        /* CORAZONES BROTANTES DEL NOMBRE */
         .sprout-heart {
             position: absolute;
-            color: #ffb7c5; /* Mismo rosa que el nombre */
+            color: #ffb7c5;
             pointer-events: none;
-            z-index: 1; /* Detrás del texto */
+            z-index: 1;
             font-size: 15px;
             animation: sproutUp 3s ease-out forwards;
             opacity: 0;
@@ -206,10 +209,13 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        @media (max-width: 480px) {
-            .header-flex { flex-direction: row; gap: 15px; }
+        /* AJUSTE RESPONSIVE PANEL */
+        @media (max-width: 500px) {
+            .header-flex { flex-direction: row; gap: 15px; justify-content: center; }
             .name-aloe { font-size: 30px; }
-            .avatar-wrapper { width: 90px; height: 90px; }
+            .avatar-wrapper { width: 85px; height: 85px; }
+            .glass-panel { padding: 20px; }
+            .book-text { font-size: 17px; }
         }
     </style>
 </head>
@@ -262,29 +268,24 @@
     </audio>
 
     <script>
-        // Corazones brotando desde el NOMBRE ALOE (Nuevo Efecto)
+        // Efecto corazones nombre
         setInterval(() => {
             const wrap = document.getElementById('name-box');
             if(wrap){
                 const heart = document.createElement('div');
                 heart.classList.add('sprout-heart');
                 heart.innerHTML = '❤';
-                
-                // Posición inicial aleatoria dentro del área del nombre
                 heart.style.left = (Math.random() * 60 + 20) + '%';
                 heart.style.top = (Math.random() * 50 + 20) + '%';
-                
-                // Trayectoria de brote (hacia arriba y a los lados)
-                const tx = (Math.random() - 0.5) * 80 + 'px'; // Desplazamiento X
-                const ty = (Math.random() * -60 - 40) + 'px'; // Desplazamiento Y (hacia arriba)
+                const tx = (Math.random() - 0.5) * 80 + 'px'; 
+                const ty = (Math.random() * -60 - 40) + 'px'; 
                 heart.style.setProperty('--translateSprout', `translate(${tx}, ${ty})`);
-                
                 wrap.appendChild(heart);
-                setTimeout(() => heart.remove(), 3000); // Se van después de la animación
+                setTimeout(() => heart.remove(), 3000);
             }
-        }, 600); // Frecuencia del brote (menos intenso que el del GIF)
+        }, 600);
 
-        // Corazones rojos desde el GIF
+        // Corazones GIF
         setInterval(() => {
             const wrap = document.getElementById('avatar-box');
             if(wrap){
@@ -300,7 +301,7 @@
             }
         }, 350);
 
-        // Lluvia de corazones blanca de fondo
+        // Lluvia corazones fondo
         setInterval(() => {
             const container = document.getElementById('heart-container');
             if(container){
