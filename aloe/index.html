@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALOE XatSpace</title>
-		<link rel="SHORTCUT ICON" href="https://xatimg.com/image/K0omsEWnsHvq.gif">
-
+	<link rel="SHORTCUT ICON" href="https://xatimg.com/image/K0omsEWnsHvq.gif">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -24,12 +23,10 @@
             cursor: pointer;
         }
 
-        /* --- IMAGEN DE FONDO (LÓGICA PC / MÓVIL) --- */
         .bg-photos {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1;
-            /* Imagen por defecto (PC - 1920x1080) */
             background-image: url('https://xatimg.com/image/aiJ20X8LT75e.jpg');
             background-size: cover;
             background-position: center;
@@ -37,15 +34,12 @@
             pointer-events: none;
         }
 
-        /* Detecta si la pantalla es vertical (celulares) */
         @media (max-width: 500px) or (orientation: portrait) {
             .bg-photos {
-                /* ACA PONÉ EL LINK DE TU IMAGEN DE 1080x1920 */
                 background-image: url('https://xatimg.com/image/pU2VUMInUvTj.jpg');
                 background-position: center center;
             }
         }
-        /* ------------------------------------------- */
 
         .heart-container {
             position: absolute;
@@ -81,6 +75,8 @@
             width: 95%;
             position: relative;
             z-index: 10;
+            /* Espacio extra abajo para que el botón no pise el texto en móviles */
+            margin-bottom: 60px; 
         }
 
         .header-flex {
@@ -100,8 +96,7 @@
         }
 
         .avatar-container {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             border-radius: 50%;
             padding: 3px;
             background: rgba(255, 255, 255, 0.2);
@@ -111,8 +106,7 @@
         }
 
         .avatar-container img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
             border-radius: 50%;
         }
@@ -191,31 +185,38 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
         }
 
+        /* --- BOTÓN DE AUDIO CORREGIDO --- */
         .audio-controls {
             position: fixed;
-            bottom: 25px;
+            bottom: 30px; /* Siempre a 30px del borde inferior */
             left: 50%;
             transform: translateX(-50%);
-            z-index: 999;
+            z-index: 2000; /* Por encima de todo */
         }
 
         .audio-btn {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.6);
+            background: rgba(0,0,0,0.6);
+            border: 2px solid rgba(255,183,197,0.5); /* Color rosadito suave */
             color: white;
-            width: 45px; height: 45px;
+            width: 50px; height: 50px;
             border-radius: 50%;
             cursor: pointer;
             display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
-        /* AJUSTE RESPONSIVE PANEL */
+        .audio-btn:hover {
+            transform: scale(1.1);
+            background: rgba(0,0,0,0.8);
+        }
+
         @media (max-width: 500px) {
             .header-flex { flex-direction: row; gap: 15px; justify-content: center; }
             .name-aloe { font-size: 30px; }
             .avatar-wrapper { width: 85px; height: 85px; }
-            .glass-panel { padding: 20px; }
-            .book-text { font-size: 17px; }
+            .glass-panel { padding: 20px; margin-bottom: 80px; }
+            .book-text { font-size: 16px; }
         }
     </style>
 </head>
