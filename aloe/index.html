@@ -77,10 +77,8 @@
             z-index: 10;
             margin-bottom: 60px; 
             min-height: 350px;
-            transition: all 0.3s ease;
         }
 
-        /* --- ICONOS EN LAS ESQUINAS (FIJOS) --- */
         .corner-btn {
             position: absolute;
             top: 25px;
@@ -97,17 +95,15 @@
         #btn-music { left: 25px; }
         #btn-back { right: 25px; }
 
-        /* --- CABECERA CENTRADA (RECUPERADO) --- */
         .header-flex {
             display: flex;
             align-items: center;
-            justify-content: center; /* Centrado total */
+            justify-content: center; 
             gap: 20px;
             margin-bottom: 25px;
             width: 100%;
         }
 
-        /* TAMAÑO ORIGINAL DEL GIF (120x120) */
         .avatar-wrapper {
             position: relative;
             width: 120px; 
@@ -138,7 +134,6 @@
             position: relative;
         }
 
-        /* TAMAÑO ORIGINAL DEL NOMBRE (42px) */
         .name-aloe {
             font-family: 'Cinzel Decorative', serif;
             font-size: 42px; 
@@ -149,7 +144,7 @@
             z-index: 2;
         }
 
-        .flag-icon { width: 28px; height: auto; } /* Tamaño original */
+        .flag-icon { width: 28px; height: auto; cursor: help; }
 
         .hidden { display: none !important; }
 
@@ -168,7 +163,6 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
         }
 
-        /* --- REPRODUCTOR CON CORAZONES (MEJORADO) --- */
         .music-wrapper {
             position: relative;
             width: 100%;
@@ -176,13 +170,12 @@
             margin-top: 10px;
         }
 
-        /* Capa Trasera: Corazones Rosados (Saliendo del contorno) */
         .pink-hearts-back {
             position: absolute;
-            top: -10%; left: -10%; width: 120%; height: 120%; /* Más grande para que desborden */
+            top: -15%; left: -15%; width: 130%; height: 130%; 
             z-index: 1;
             pointer-events: none;
-            overflow: visible; /* Clave para que se vean fuera */
+            overflow: visible;
         }
 
         .video-box {
@@ -192,10 +185,9 @@
             border-radius: 15px;
             overflow: hidden;
             border: 2px solid #ffb7c5;
-            box-shadow: 0 0 25px rgba(255, 183, 197, 0.5); /* Más brillo */
+            box-shadow: 0 0 25px rgba(255, 183, 197, 0.5);
         }
 
-        /* Capa Delantera: Corazones Rojos */
         .red-hearts-front {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -205,7 +197,6 @@
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* Animaciones de corazones */
         .burst-heart {
             position: absolute;
             pointer-events: none;
@@ -241,7 +232,6 @@
             .name-aloe { font-size: 30px; }
             .avatar-wrapper { width: 90px; height: 90px; }
             .glass-panel { padding-top: 55px; }
-            .flag-icon { width: 22px; }
         }
     </style>
 </head>
@@ -263,7 +253,7 @@
             
             <div class="user-info" id="name-box">
                 <h1 class="name-aloe">ALOE</h1>
-                <img src="https://xatimg.com/image/VzoFcoKcIfhN.png" class="flag-icon" alt="ESPAÑA">
+                <img src="https://xatimg.com/image/VzoFcoKcIfhN.png" class="flag-icon" title="ESPAÑA | ALOE" alt="ESPAÑA | ALOE">
             </div>
         </div>
 
@@ -282,11 +272,9 @@
         <div id="music-content" class="hidden">
             <div class="music-wrapper">
                 <div class="pink-hearts-back" id="pink-hearts"></div>
-                
                 <div class="video-box">
-                    <iframe id="yt-player" src="https://www.youtube.com/embed/pJ-2ERdB1xE?enablejsapi=1&autoplay=0&loop=1&playlist=pJ-2ERdB1xE" allow="autoplay; encrypted-media"></iframe>
+                    <iframe id="yt-player" src="https://www.youtube.com/embed/pJ-2ERdB1xE?enablejsapi=1&autoplay=0&loop=1&playlist=pJ-2ERdB1xE&controls=0" allow="autoplay; encrypted-media"></iframe>
                 </div>
-
                 <div class="red-hearts-front" id="red-hearts"></div>
             </div>
         </div>
@@ -295,10 +283,12 @@
     <script>
         let started = false;
 
+        // FUNCIÓN CLAVE: Reproduce al primer clic en cualquier lado del body
         function handleFirstClick() {
             if (!started) {
                 const player = document.getElementById('yt-player');
-                player.src += "&autoplay=1";
+                // Mandamos el comando play a la API de YouTube
+                player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
                 started = true;
             }
         }
@@ -308,6 +298,8 @@
             document.getElementById('btn-music').classList.add('hidden');
             document.getElementById('music-content').classList.remove('hidden');
             document.getElementById('btn-back').classList.remove('hidden');
+            // Aseguramos que suene al cambiar de pestaña si no hizo clic antes
+            handleFirstClick();
         }
 
         function showPhrase() {
@@ -317,15 +309,11 @@
             document.getElementById('btn-music').classList.remove('hidden');
         }
 
-        // Generador de corazones para el video (MEJORADO)
+        // Generador de corazones para el video
         setInterval(() => {
             if(!document.getElementById('music-content').classList.contains('hidden')){
-                // Corazón Rojo (Frente) - Movimiento estándar
                 createBurstHeart('red-hearts', '#ff0000', 1.3, 300, 200);
-                
-                // Corazón Rosado (Atrás) - Movimiento más amplio para desbordar
-                createBurstHeart('pink-hearts', '#ffb7c5', 1.6, 450, 300); 
-                createBurstHeart('pink-hearts', '#ffb7c5', 1.6, 450, 300); // Doble frecuencia atrás
+                createBurstHeart('pink-hearts', '#ffb7c5', 1.6, 500, 350); 
             }
         }, 350);
 
@@ -335,24 +323,17 @@
             heart.classList.add('burst-heart');
             heart.innerHTML = '❤';
             heart.style.color = color;
-            
-            // Efecto neón más fuerte para los de atrás
-            if(color === '#ffb7c5') {
-                heart.style.textShadow = '0 0 10px #ffb7c5, 0 0 20px #ffb7c5';
-            }
-            
-            // Movimiento aleatorio amplio
+            if(color === '#ffb7c5') heart.style.textShadow = '0 0 10px #ffb7c5, 0 0 20px #ffb7c5';
             const tx = (Math.random() - 0.5) * rangeX + 'px';
             const ty = (Math.random() - 0.5) * rangeY + 'px';
             heart.style.setProperty('--tx', tx);
             heart.style.setProperty('--ty', ty);
             heart.style.setProperty('--scale', scale);
-            
             container.appendChild(heart);
             setTimeout(() => heart.remove(), 2800);
         }
 
-        // Corazones nombre y lluvia fondo (igual que antes)
+        // Efectos de ambiente (nombre y lluvia)
         setInterval(() => {
             const wrap = document.getElementById('name-box');
             if(wrap){
