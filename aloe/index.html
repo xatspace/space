@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALOE XatSpace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #1a0a1a 0%, #3d1a3d 35%, #5e2a5e 60%, #2e0a2e 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bg-photos {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            background-image: url('https://xatimg.com/image/aiJ20X8LT75e.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .heart-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 20px;
+            animation: fall linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% { top: -10%; transform: translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            80% { opacity: 0.6; }
+            100% { top: 100%; transform: translateX(50px) rotate(360deg); opacity: 0; }
+        }
+
+        .glass-panel {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 40px;
+            padding: 25px 30px; 
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            max-width: 440px;
+            width: 95%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 25px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+        }
+
+        .avatar-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            padding: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .red-heart-burst {
+            position: absolute;
+            color: #ff0000;
+            text-shadow: 0 0 8px #ff0000;
+            z-index: 6;
+            pointer-events: none;
+            font-size: 20px;
+            top: 50%; left: 50%;
+            animation: burstOut 2.5s ease-out forwards;
+        }
+
+        @keyframes burstOut {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1.2); opacity: 0; }
+        }
+
+        /* CONTENEDOR DE NOMBRE Y BANDERA */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative; /* Clave para los corazones brotantes */
+        }
+
+        .name-aloe {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 42px;
+            color: #ffb7c5; 
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            line-height: 1;
+            position: relative; /* Para el z-index */
+            z-index: 2; /* Arriba de los corazones */
+        }
+
+        .flag-icon {
+            width: 28px;
+            height: auto;
+            margin-top: 5px;
+            position: relative; /* Para el z-index */
+            z-index: 2; /* Arriba de los corazones */
+        }
+
+        /* CORAZONES BROTANTES DEL NOMBRE */
+        .sprout-heart {
+            position: absolute;
+            color: #ffb7c5; /* Mismo rosa que el nombre */
+            pointer-events: none;
+            z-index: 1; /* Detrás del texto */
+            font-size: 15px;
+            animation: sproutUp 3s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes sproutUp {
+            0% { transform: translateY(0) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: var(--translateSprout) scale(1.2); opacity: 0; }
+        }
+
+        .phrase-container {
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 15px;
+            text-align: center;
+        }
+
+        .book-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px;
+            line-height: 1.4;
+            color: #ffffff;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+        }
+
+        .audio-controls {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+        }
+
+        .audio-btn {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.6);
+            color: white;
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        @media (max-width: 480px) {
+            .header-flex { flex-direction: row; gap: 15px; }
+            .name-aloe { font-size: 30px; }
+            .avatar-wrapper { width: 90px; height: 90px; }
+        }
+    </style>
+</head>
+<body onclick="handleFirstClick()">
+
+    <div class="bg-photos"></div>
+    <div class="heart-container" id="heart-container"></div>
+
+    <div class="glass-panel">
+        <div class="header-flex">
+            <div class="avatar-wrapper" id="avatar-box">
+                <div class="avatar-container">
+                    <img src="https://xatimg.com/image/xRlScAWo3KgI.gif" alt="Aloe">
+                </div>
+            </div>
+            
+            <div class="user-info" id="name-box">
+                <h1 class="name-aloe">ALOE</h1>
+                <img src="https://xatimg.com/image/VzoFcoKcIfhN.png" 
+                     class="flag-icon" 
+                     title="ESPAÑA | ALOE" 
+                     alt="ESPAÑA">
+            </div>
+        </div>
+
+        <div class="phrase-container">
+            <p class="book-text" style="font-weight: bold; margin-bottom: 10px; text-transform: uppercase;">
+                LOS ENEMIGOS QUE SE VUELVEN TUS FANS
+            </p>
+            <p class="book-text">
+                Cuando a una persona le caes mal se alía con otra para estar en contra de ti, 
+                y también le caes mal, aunque ni te CONOZCA, luego le cuentan a otra y a otra y a otra, 
+                y de pronto hay un montón de gente odiándote. <br><br>
+                A decir verdad ni entre ellos se SOPORTAN 
+                pero se juntaron solamente por causa de ti. <br><br>
+                <strong>¿Ya viste lo poderosos que llegamos a ser?</strong> <br>
+                <strong style="font-size: 1.1em; letter-spacing: 2px;">JAJAJAJAJAJAJA...</strong>
+            </p>
+        </div>
+    </div>
+
+    <div class="audio-controls">
+        <button class="audio-btn" onclick="togglePlay(event)">
+            <i class="fas fa-play" id="play-icon"></i>
+        </button>
+    </div>
+
+    <audio id="main-audio" loop>
+        <source src="https://xatspace.github.io/space/lucas/JosephWeightmanMaybe.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Corazones brotando desde el NOMBRE ALOE (Nuevo Efecto)
+        setInterval(() => {
+            const wrap = document.getElementById('name-box');
+            if(wrap){
+                const heart = document.createElement('div');
+                heart.classList.add('sprout-heart');
+                heart.innerHTML = '❤';
+                
+                // Posición inicial aleatoria dentro del área del nombre
+                heart.style.left = (Math.random() * 60 + 20) + '%';
+                heart.style.top = (Math.random() * 50 + 20) + '%';
+                
+                // Trayectoria de brote (hacia arriba y a los lados)
+                const tx = (Math.random() - 0.5) * 80 + 'px'; // Desplazamiento X
+                const ty = (Math.random() * -60 - 40) + 'px'; // Desplazamiento Y (hacia arriba)
+                heart.style.setProperty('--translateSprout', `translate(${tx}, ${ty})`);
+                
+                wrap.appendChild(heart);
+                setTimeout(() => heart.remove(), 3000); // Se van después de la animación
+            }
+        }, 600); // Frecuencia del brote (menos intenso que el del GIF)
+
+        // Corazones rojos desde el GIF
+        setInterval(() => {
+            const wrap = document.getElementById('avatar-box');
+            if(wrap){
+                const heart = document.createElement('div');
+                heart.classList.add('red-heart-burst');
+                heart.innerHTML = '❤';
+                const tx = (Math.random() - 0.5) * 150 + 'px';
+                const ty = (Math.random() - 0.5) * 150 + 'px';
+                heart.style.setProperty('--tx', tx);
+                heart.style.setProperty('--ty', ty);
+                wrap.appendChild(heart);
+                setTimeout(() => heart.remove(), 2500);
+            }
+        }, 350);
+
+        // Lluvia de corazones blanca de fondo
+        setInterval(() => {
+            const container = document.getElementById('heart-container');
+            if(container){
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                const duration = Math.random() * 5 + 5;
+                heart.style.animationDuration = duration + 's';
+                container.appendChild(heart);
+                setTimeout(() => heart.remove(), duration * 1000);
+            }
+        }, 450);
+
+        const audio = document.getElementById('main-audio');
+        const playIcon = document.getElementById('play-icon');
+        let started = false;
+
+        function handleFirstClick() {
+            if (!started) {
+                audio.play().catch(e => {});
+                started = true;
+                updateIcons();
+            }
+        }
+
+        function togglePlay(e) {
+            e.stopPropagation();
+            if (audio.paused) audio.play(); else audio.pause();
+            updateIcons();
+        }
+
+        function updateIcons() {
+            playIcon.className = audio.paused ? "fas fa-play" : "fas fa-pause";
+        }
+    </script>
+</body>
+</html>
