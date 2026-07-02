@@ -7,59 +7,58 @@
     <link rel="SHORTCUT ICON" href="https://xatimg.com/image/K0omsEWnsHvq.gif">
     <style>
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black; /* Fondo negro absoluto */
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: black; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        /* La imagen se amolda para verse completa siempre */
+        .lateral {
+            position: fixed; top: 0; width: 30%; min-width: 250px; height: 100%; 
+            z-index: 0; pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .izq { 
+            left: 0; 
+            /* Amarillo 50%, Azul 25% (hasta 75%), Rojo 25% (hasta 100%) */
+            background: linear-gradient(to bottom, #FFD700 50%, #0033A0 50%, #0033A0 75%, #FF0000 75%, #FF0000 100%);
+            mask-image: linear-gradient(to right, black 20%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 20%, transparent 100%);
+        }
+        
+        .der { 
+            right: 0; 
+            background: linear-gradient(to bottom, #FFD700 50%, #0033A0 50%, #0033A0 75%, #FF0000 75%, #FF0000 100%);
+            mask-image: linear-gradient(to left, black 20%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 20%, transparent 100%);
+        }
+
         #imagen-central {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain; /* Esto fuerza a que se vea completa y no se recorte */
-            z-index: 1;
-            position: relative;
+            max-width: 100%; max-height: 100%;
+            object-fit: contain; z-index: 1; position: relative;
         }
 
-        /* Los corazones por encima */
         #heart-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 2;
         }
 
         .heart {
-            position: absolute;
-            top: -50px;
-            animation: fall linear forwards;
-            font-size: 20px;
-            user-select: none;
+            position: absolute; top: -50px; animation: fall linear forwards;
+            font-size: 20px; user-select: none;
         }
 
-        @keyframes fall {
-            to { transform: translateY(100vh); }
-        }
+        @keyframes fall { to { transform: translateY(100vh); } }
     </style>
 </head>
 <body onclick="playMusic()">
 
-    <!-- Fondo negro (es el body) y la imagen centrada encima -->
-    <img id="imagen-central" src="https://xatimg.com/image/tzQ8VhtkS50E.png" alt="Portfolio Image">
+    <div class="lateral izq"></div>
+    <div class="lateral der"></div>
 
-    <!-- Capa de corazones -->
+    <img id="imagen-central" src="https://xatimg.com/image/tzQ8VhtkS50E.png" alt="Portfolio Image">
     <div id="heart-container"></div>
 
-    <!-- Música -->
     <audio id="musica" loop>
         <source src="https://xatspace.github.io/space/music/KarolG-SiAntesTeHubieraConocido.mp3" type="audio/mpeg">
     </audio>
@@ -67,9 +66,7 @@
     <script>
         function playMusic() {
             const audio = document.getElementById("musica");
-            if (audio.paused) {
-                audio.play();
-            }
+            if (audio.paused) { audio.play(); }
         }
 
         const colors = ['#FF0000', '#0033A0', '#FFD700'];
@@ -81,7 +78,6 @@
             heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
             heart.style.color = colors[Math.floor(Math.random() * colors.length)];
             document.getElementById('heart-container').appendChild(heart);
-            
             setTimeout(() => { heart.remove(); }, 7000);
         }
         
