@@ -20,7 +20,6 @@
 
         .izq { 
             left: 0; 
-            /* Amarillo 50%, Azul 25% (hasta 75%), Rojo 25% (hasta 100%) */
             background: linear-gradient(to bottom, #FFD700 50%, #0033A0 50%, #0033A0 75%, #FF0000 75%, #FF0000 100%);
             mask-image: linear-gradient(to right, black 20%, transparent 100%);
             -webkit-mask-image: linear-gradient(to right, black 20%, transparent 100%);
@@ -49,6 +48,13 @@
         }
 
         @keyframes fall { to { transform: translateY(100vh); } }
+
+        /* --- CSS PARA MÓVIL: OCULTAR FONDOS --- */
+        @media only screen and (max-width: 768px) {
+            .lateral {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body onclick="playMusic()">
