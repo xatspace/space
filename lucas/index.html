@@ -2,26 +2,37 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>XatSpace Lucas - Premium</title>
     <LINK REL="SHORTCUT ICON" href="https://xatimg.com/image/efqcpwxdWtTJ.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { width: 100%; overflow-x: hidden; }
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
         body {
-            min-height: 100vh;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             background: linear-gradient(135deg, #020111 0%, #0c0a25 35%, #051937 60%, #00234a 100%);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            overflow-x: hidden;
+            overflow: hidden;
             cursor: pointer;
-            position: relative;
-            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
@@ -37,12 +48,14 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
+            overflow: hidden;
         }
         .snowflake {
             position: absolute;
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
             animation: fall linear infinite;
+            will-change: transform, top;
         }
         @keyframes fall {
             0% { top: -5vh; transform: translateX(0); opacity: 0; }
@@ -59,6 +72,7 @@
             border-radius: 50%;
             animation: float 8s ease-in-out infinite;
             pointer-events: none;
+            will-change: transform;
         }
         @keyframes float {
             0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
@@ -80,10 +94,11 @@
             position: relative;
             z-index: 2;
             animation: panelFloat 6s ease-in-out infinite;
+            will-change: transform;
         }
         @keyframes panelFloat {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
         .header-container {
             display: flex;
@@ -100,7 +115,7 @@
             transition: transform 0.4s ease, filter 0.4s ease;
         }
         .felix-photo:hover {
-            transform: scale(1.08);
+            transform: scale(1.05);
             filter: drop-shadow(0 8px 25px rgba(79, 172, 254, 0.4));
         }
         .name-wave {
@@ -115,6 +130,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            will-change: background-position;
         }
         @keyframes namewave {
             0% { background-position: 0% 50%; }
@@ -134,6 +150,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            will-change: background-position;
         }
         @keyframes phraseWave {
             0% { background-position: 0% 50%; }
@@ -169,7 +186,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
         }
         .audio-btn:active {
             transform: scale(0.95);
@@ -180,7 +198,7 @@
         }
         /* --- RESPONSIVO --- */
         @media (max-width: 700px) {
-            .glass-panel { padding: 40px 25px; }
+            .glass-panel { padding: 30px 20px; }
             .name-wave { font-size: 42px; letter-spacing: 2px; }
             .inspirational-phrase { font-size: 18px; }
             .felix-photo { height: 75px; }
@@ -245,7 +263,7 @@
             container.appendChild(snowflake);
             setTimeout(() => snowflake.remove(), parseFloat(duration) * 1000);
         }
-        setInterval(createSnowflake, 100);
+        setInterval(createSnowflake, 120); // Más lento = menos carga = no titila
 
         // AUDIO
         const audio = document.getElementById('main-audio');
