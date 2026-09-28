@@ -2,13 +2,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
     <title>XatSpace Lucas - Premium</title>
     <LINK REL="SHORTCUT ICON" href="https://xatimg.com/image/efqcpwxdWtTJ.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { width: 100%; overflow-x: hidden; }
         body {
             min-height: 100vh;
             display: flex;
@@ -17,9 +18,10 @@
             background: linear-gradient(135deg, #020111 0%, #0c0a25 35%, #051937 60%, #00234a 100%);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            overflow: hidden;
+            overflow-x: hidden;
             cursor: pointer;
             position: relative;
+            width: 100%;
         }
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
@@ -41,7 +43,6 @@
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
             animation: fall linear infinite;
-            transition: opacity 0.3s ease;
         }
         @keyframes fall {
             0% { top: -5vh; transform: translateX(0); opacity: 0; }
@@ -114,7 +115,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
         }
         @keyframes namewave {
             0% { background-position: 0% 50%; }
@@ -134,7 +134,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: none;
         }
         @keyframes phraseWave {
             0% { background-position: 0% 50%; }
@@ -157,11 +156,6 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             z-index: 100;
-            transition: all 0.3s ease;
-        }
-        .audio-controls:hover {
-            background: rgba(0, 0, 0, 0.5);
-            border-color: rgba(79, 172, 254, 0.3);
         }
         .audio-btn {
             background: none;
@@ -177,14 +171,9 @@
             justify-content: center;
             transition: all 0.3s ease;
         }
-        .audio-btn:hover {
-            transform: scale(1.1);
-            color: #4facfe;
-        }
         .audio-btn:active {
             transform: scale(0.95);
         }
-        /* COLOR CELESTE PARA ACTIVOS */
         .active-icon {
             color: #4facfe !important;
             text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
@@ -215,7 +204,7 @@
 </head>
 <body onclick="handleFirstClick()">
     <div class="snow-container" id="snow-container"></div>
-    <!-- Partículas decorativas -->
+    
     <div class="particle" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
     <div class="particle" style="top: 60%; left: 85%; animation-delay: 2s;"></div>
     <div class="particle" style="top: 80%; left: 25%; animation-delay: 4s;"></div>
@@ -258,7 +247,7 @@
         }
         setInterval(createSnowflake, 100);
 
-        // AUDIO LOGIC
+        // AUDIO
         const audio = document.getElementById('main-audio');
         const playIcon = document.getElementById('play-icon');
         let interactionDone = false;
@@ -293,7 +282,7 @@
             audio.play().then(() => {
                 interactionDone = true;
                 updateIcons();
-            }).catch(() => console.log("Esperando interacción..."));
+            }).catch(() => {});
         };
     </script>
 </body>
