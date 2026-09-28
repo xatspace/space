@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XatSpace Lucas - Edición Premium</title>
-	<LINK REL="SHORTCUT ICON" href="https://xatimg.com/image/efqcpwxdWtTJ.png">
+    <title>XatSpace Lucas - Premium</title>
+    <LINK REL="SHORTCUT ICON" href="https://xatimg.com/image/efqcpwxdWtTJ.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,13 +21,11 @@
             cursor: pointer;
             position: relative;
         }
-
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
         /* --- NIEVE --- */
         .snow-container {
             position: absolute;
@@ -39,21 +36,33 @@
             pointer-events: none;
             z-index: 1;
         }
-
         .snowflake {
             position: absolute;
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
             animation: fall linear infinite;
+            transition: opacity 0.3s ease;
         }
-
         @keyframes fall {
             0% { top: -5vh; transform: translateX(0); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
             100% { top: 105vh; transform: translateX(30px); opacity: 0; }
         }
-
+        /* --- PARTÍCULAS FLOTANTES --- */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(79, 172, 254, 0.6);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            50% { transform: translateY(-30px) translateX(15px); opacity: 0.8; }
+        }
         /* --- PANEL --- */
         .glass-panel {
             background: rgba(255, 255, 255, 0.02);
@@ -62,24 +71,37 @@
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
             max-width: 900px;
             width: 90%;
             text-align: center;
             position: relative;
             z-index: 2;
+            animation: panelFloat 6s ease-in-out infinite;
         }
-
+        @keyframes panelFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
         .header-container {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 25px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
         }
-
-        .felix-photo { height: 110px; width: auto; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); }
-
+        .felix-photo {
+            height: 110px;
+            width: auto;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+        .felix-photo:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 8px 25px rgba(79, 172, 254, 0.4));
+        }
         .name-wave {
             font-family: 'Cinzel Decorative', serif;
             font-size: 72px;
@@ -94,90 +116,130 @@
             color: transparent;
             text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
         }
-
         @keyframes namewave {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
         .inspirational-phrase {
             font-family: 'Cormorant Garamond', serif;
             font-size: 28px;
             font-style: italic;
             font-weight: 600;
-            color: #ffffff;
             letter-spacing: 1.5px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 2px 2px 4px rgba(0, 0, 0, 0.9);
-            opacity: 0.95;
-            animation: textGlow 4s ease-in-out infinite alternate;
+            line-height: 1.4;
+            background-size: 400% 400%;
+            animation: phraseWave 8s ease infinite;
+            background-image: linear-gradient(-45deg, #00f2fe, #4facfe, #ee0979, #ff6a00, #00f2fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
         }
-
-        @keyframes textGlow {
-            from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.9); }
-            to { text-shadow: 0 0 20px rgba(79, 172, 254, 0.6), 2px 2px 4px rgba(0, 0, 0, 0.9); }
+        @keyframes phraseWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-
-        /* --- PLAYER CONTROLS --- */
+        /* --- CONTROLES DE AUDIO - SOLO PLAY/PAUSE CHIQUITO --- */
         .audio-controls {
             position: fixed;
             bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px 25px;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 8px 18px;
             border-radius: 50px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            justify-content: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 100;
+            transition: all 0.3s ease;
         }
-
+        .audio-controls:hover {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: rgba(79, 172, 254, 0.3);
+        }
         .audio-btn {
             background: none;
             border: none;
             color: #ffffff;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
         }
-
+        .audio-btn:hover {
+            transform: scale(1.1);
+            color: #4facfe;
+        }
+        .audio-btn:active {
+            transform: scale(0.95);
+        }
         /* COLOR CELESTE PARA ACTIVOS */
-        .active-icon { color: #4facfe !important; text-shadow: 0 0 10px rgba(79, 172, 254, 0.5); }
-
+        .active-icon {
+            color: #4facfe !important;
+            text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+        }
+        /* --- RESPONSIVO --- */
         @media (max-width: 700px) {
-            .name-wave { font-size: 50px; }
-            .inspirational-phrase { font-size: 20px; }
-            .felix-photo { height: 80px; }
+            .glass-panel { padding: 40px 25px; }
+            .name-wave { font-size: 42px; letter-spacing: 2px; }
+            .inspirational-phrase { font-size: 18px; }
+            .felix-photo { height: 75px; }
+            .header-container { gap: 15px; }
+            .audio-controls {
+                padding: 6px 15px;
+                bottom: 18px;
+            }
+            .audio-btn {
+                font-size: 15px;
+                width: 28px;
+                height: 28px;
+            }
+        }
+        @media (max-width: 480px) {
+            .name-wave { font-size: 32px; }
+            .inspirational-phrase { font-size: 16px; }
+            .felix-photo { height: 65px; }
         }
     </style>
 </head>
 <body onclick="handleFirstClick()">
-
     <div class="snow-container" id="snow-container"></div>
+    <!-- Partículas decorativas -->
+    <div class="particle" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
+    <div class="particle" style="top: 60%; left: 85%; animation-delay: 2s;"></div>
+    <div class="particle" style="top: 80%; left: 25%; animation-delay: 4s;"></div>
+    <div class="particle" style="top: 30%; left: 75%; animation-delay: 1.5s;"></div>
+    <div class="particle" style="top: 45%; left: 10%; animation-delay: 3s;"></div>
 
     <div class="glass-panel">
         <div class="header-container">
-            <img src="https://xatimg.com/image/efqcpwxdWtTJ.png" alt="Félix" class="felix-photo">
+            <img src="https://xatimg.com/image/efqcpwxdWtTJ.png" alt="Félix" class="felix-photo" loading="lazy">
             <h1 class="name-wave">LUCAS</h1>
         </div>
         <p class="inspirational-phrase">"Sé la Luz Brillante en la Tormenta de Alguien"</p>
     </div>
 
     <div class="audio-controls">
-        <button class="audio-btn" onclick="togglePlay(event)">
+        <button class="audio-btn" onclick="togglePlay(event)" aria-label="Reproducir/Pausar">
             <i class="fas fa-play" id="play-icon"></i>
-        </button>
-        <button class="audio-btn" onclick="toggleMute(event)">
-            <i class="fas fa-volume-up" id="volume-icon"></i>
         </button>
     </div>
 
-    <audio id="main-audio" loop>
+    <audio id="main-audio" loop preload="auto">
         <source src="https://xatspace.github.io/space/lucas/JosephWeightmanMaybe.mp3" type="audio/mpeg">
-    </audio>
+        Tu navegador no soporta audio.
+    
 
     <script>
         // NIEVE
@@ -185,26 +247,25 @@
             const container = document.getElementById('snow-container');
             const snowflake = document.createElement('div');
             snowflake.classList.add('snowflake');
-            const size = Math.random() * 3 + 1 + 'px';
+            const size = Math.random() * 4 + 1 + 'px';
             snowflake.style.width = size;
             snowflake.style.height = size;
             snowflake.style.left = Math.random() * 100 + 'vw';
-            const duration = Math.random() * 6 + 4 + 's';
+            const duration = Math.random() * 7 + 4 + 's';
             snowflake.style.animationDuration = duration;
             container.appendChild(snowflake);
             setTimeout(() => snowflake.remove(), parseFloat(duration) * 1000);
         }
-        setInterval(createSnowflake, 120);
+        setInterval(createSnowflake, 100);
 
         // AUDIO LOGIC
         const audio = document.getElementById('main-audio');
         const playIcon = document.getElementById('play-icon');
-        const volumeIcon = document.getElementById('volume-icon');
         let interactionDone = false;
 
         function handleFirstClick() {
             if (!interactionDone) {
-                audio.play();
+                audio.play().catch(() => {});
                 interactionDone = true;
                 updateIcons();
             }
@@ -212,18 +273,12 @@
 
         function togglePlay(e) {
             e.stopPropagation();
-            if (audio.paused) audio.play(); else audio.pause();
-            updateIcons();
-        }
-
-        function toggleMute(e) {
-            e.stopPropagation();
-            audio.muted = !audio.muted;
+            if (audio.paused) audio.play();
+            else audio.pause();
             updateIcons();
         }
 
         function updateIcons() {
-            // Update Play/Pause Icon
             if (audio.paused) {
                 playIcon.className = "fas fa-play";
                 playIcon.classList.remove('active-icon');
@@ -231,24 +286,14 @@
                 playIcon.className = "fas fa-pause";
                 playIcon.classList.add('active-icon');
             }
-
-            // Update Volume Icon
-            if (audio.muted) {
-                volumeIcon.className = "fas fa-volume-mute";
-                volumeIcon.classList.remove('active-icon');
-            } else {
-                volumeIcon.className = "fas fa-volume-up";
-                // Solo se pone celeste si está sonando y NO está muteado
-                if (!audio.paused) volumeIcon.classList.add('active-icon');
-                else volumeIcon.classList.remove('active-icon');
-            }
         }
 
         window.onload = () => {
+            audio.volume = 0.8;
             audio.play().then(() => {
                 interactionDone = true;
                 updateIcons();
-            }).catch(() => console.log("Esperando click..."));
+            }).catch(() => console.log("Esperando interacción..."));
         };
     </script>
 </body>
