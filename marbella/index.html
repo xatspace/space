@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marbella XatSpace</title>
     <link rel="SHORTCUT ICON" href="https://xatimg.com/image/K0omsEWnsHvq.gif">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,12 +14,12 @@
             height: 100vh;
             margin: 0;
             display: flex;
-            justify-content: flex-start;
+            justify-content: center; /* Centrado perfecto en PC */
             align-items: center;
-            padding-left: calc(50vw - 220px - 250px);
+            padding-left: 0;
             overflow: hidden;
             position: relative;
-            background: #1a0a1a;
+            background: #3d1424; /* Rosado oscuro elegante que combina con la foto transparente */
             font-family: 'Montserrat', sans-serif;
             cursor: pointer;
         }
@@ -28,26 +28,31 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1;
-            background-image: url('https://xatimg.com/image/xrt03AgF6Cqj.png');
+            background-image: url('https://xatimg.com/image/UhYEm6KlklF0.png'); /* Nueva foto para PC */
             background-size: cover;
             background-position: center;
-            opacity: 0.8;
+            opacity: 0.9;
             pointer-events: none;
         }
 
-        @media (max-width: 500px) or (orientation: portrait) {
+        @media (max-width: 650px) or (orientation: portrait) {
             body {
                 justify-content: center;
                 align-items: flex-end;
-                padding-left: 0;
                 padding-bottom: 30px;
+                background: #1a0a1a; /* Fondo original móvil */
             }
             .bg-photos {
-                background-image: url('https://xatimg.com/image/zGn2C9hpAAUw.png');
+                background-image: url('https://xatimg.com/image/zGn2C9hpAAUw.png'); /* Foto móvil intacta */
                 background-position: center center;
+                opacity: 0.8;
             }
             .glass-panel {
                 transform: none !important;
+                max-width: 92% !important;
+            }
+            .book-text {
+                font-size: 12.5px !important; 
             }
         }
 
@@ -74,25 +79,25 @@
         }
 
         .glass-panel {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.35); 
             border-radius: 40px;
-            padding: 20px 25px 15px; 
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            max-width: 440px;
+            padding: 22px 30px 18px; 
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            max-width: 530px; 
             width: 95%;
             position: relative;
             z-index: 10;
-            transform: translateY(-50px);
+            transform: none; /* Centrado exacto sin desplazamiento forzado */
         }
 
         .header-flex {
             display: flex;
             align-items: center;
             justify-content: center; 
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             width: 100%;
         }
 
@@ -113,24 +118,27 @@
             line-height: 1;
             z-index: 2;
             text-align: center;
+            letter-spacing: 2px;
         }
 
         .phrase-container {
-            border-top: 1px solid rgba(255,255,255,0.15);
-            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 12px;
             text-align: center;
+            white-space: nowrap; 
         }
 
         .book-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 19px;
-            line-height: 1.3;
-            color: #ffffff;
-            font-style: italic;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 13.5px; 
+            letter-spacing: 1px;
+            color: #fff0f3; 
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.95); 
         }
 
-        /* Nota musical FUERA del cuadro, abajo del todo a la derecha de la pantalla */
+        /* Nota musical afuera, abajo a la derecha de la pantalla */
         .music-footer-icon {
             position: fixed;
             bottom: 20px;
@@ -188,7 +196,7 @@
         </div>
 
         <div id="phrase-content" class="phrase-container">
-            <p class="book-text" style="font-weight: bold; margin-bottom: 2px; text-transform: uppercase;">
+            <p class="book-text">
                 no compito con nadie soy mi propio brillo
             </p>
         </div>
