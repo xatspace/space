@@ -38,9 +38,9 @@
         @media (max-width: 500px) or (orientation: portrait) {
             body {
                 justify-content: center;
-                align-items: flex-end; /* Lo manda directamente hacia abajo en móvil */
+                align-items: flex-end;
                 padding-left: 0;
-                padding-bottom: 30px; /* Margen inferior en móvil */
+                padding-bottom: 30px;
             }
             .bg-photos {
                 background-image: url('https://xatimg.com/image/zGn2C9hpAAUw.png');
@@ -76,7 +76,7 @@
         .glass-panel {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 40px;
-            padding: 20px 25px 15px; /* Más compacto de alto */
+            padding: 20px 25px 15px; 
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -85,7 +85,7 @@
             width: 95%;
             position: relative;
             z-index: 10;
-            transform: translateY(-50px); /* Sube en PC como querías */
+            transform: translateY(-50px);
         }
 
         .header-flex {
@@ -128,6 +128,26 @@
             color: #ffffff;
             font-style: italic;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+        }
+
+        /* Nota musical FUERA del cuadro, abajo del todo a la derecha de la pantalla */
+        .music-footer-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 25px;
+            font-size: 22px;
+            color: #ffb7c5;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            z-index: 99;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .music-footer-icon:hover {
+            opacity: 1;
+            transform: scale(1.3);
+            text-shadow: 0 0 15px #ffb7c5;
         }
 
         .sprout-heart {
@@ -173,6 +193,9 @@
             </p>
         </div>
     </div>
+
+    <!-- Nota musical afuera, abajo a la derecha de la pantalla -->
+    <i class="fas fa-music music-footer-icon" title="Yahari Mensaje En La Luna"></i>
 
     <script>
         let started = false;
