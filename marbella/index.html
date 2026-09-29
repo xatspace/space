@@ -2,23 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marbella XatSpace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Marbella</title>
     <link rel="SHORTCUT ICON" href="https://xatimg.com/image/K0omsEWnsHvq.gif">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
+        html, body {
+            width: 100%;
             height: 100vh;
+            height: 100dvh;
             margin: 0;
-            display: flex;
-            justify-content: center; 
-            align-items: center;
-            padding-left: 0;
+            padding: 0;
             overflow: hidden;
-            position: relative;
+            position: fixed;
             background: #2a0b16; 
             font-family: 'Montserrat', sans-serif;
             cursor: pointer;
@@ -57,7 +56,13 @@
             100% { top: 100%; transform: translateX(50px) rotate(360deg); opacity: 0; }
         }
 
-        /* Estilo base y de PC: compacto y elegante al contenido */
+        /* Estilo base y de PC */
+        body {
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+        }
+
         .glass-panel {
             background: rgba(25, 5, 12, 0.45); 
             border-radius: 25px;
@@ -66,12 +71,11 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 183, 197, 0.2);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            display: inline-block; /* Hace que el cuadro se ajuste exactamente al contenido y no ocupe todo el ancho */
-            width: auto;
+            width: max-content;
             max-width: 90vw;
             position: relative;
             z-index: 10;
-            transform: translateY(-220px); /* Subido exactamente 220px en PC */
+            transform: translateY(-220px);
         }
 
         .header-flex {
@@ -100,14 +104,13 @@
             z-index: 2;
             text-align: center;
             letter-spacing: 2px;
-            white-space: nowrap; /* Evita que el nombre se corte feo */
+            white-space: nowrap;
         }
 
         .phrase-container {
             border-top: 1px solid rgba(255, 183, 197, 0.15);
             padding-top: 10px;
             text-align: center;
-            white-space: nowrap; /* Mantiene la frase en una sola línea inteligente como en PC */
         }
 
         .book-text {
@@ -118,9 +121,10 @@
             font-weight: 700;
             text-transform: uppercase;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.95); 
+            white-space: nowrap;
         }
 
-        /* Nota musical afuera, abajo a la derecha de la pantalla */
+        /* Nota musical fija abajo a la derecha */
         .music-footer-icon {
             position: fixed;
             bottom: 20px;
@@ -156,31 +160,31 @@
             100% { transform: var(--translateSprout) scale(1.2); opacity: 0; }
         }
 
-        /* Modo móvil / pantallas verticales: Abajo, pero ajustado al contenido con max-content */
-        @media (max-width: 650px) or (orientation: portrait) {
+        /* Modo móvil / pantallas verticales */
+        @media (max-width: 650px), (orientation: portrait) {
             body {
-                justify-content: center;
-                align-items: flex-end; /* Lo manda abajo */
-                padding-bottom: 50px; /* Margen inferior */
-                background: #1a0a1a; 
+                align-items: flex-end !important;
+                padding-bottom: 50px !important;
+                background: #1a0a1a !important;
             }
             .bg-photos {
-                background-image: url('https://xatimg.com/image/N3SH6uRtE4zg.png'); 
-                background-position: center center;
-                opacity: 0.8;
+                background-image: url('https://xatimg.com/image/N3SH6uRtE4zg.png') !important;
+                background-position: center center !important;
+                opacity: 0.8 !important;
             }
             .glass-panel {
                 transform: none !important;
-                width: max-content !important; /* Se ajusta de forma inteligente exactamente al tamaño del texto */
-                max-width: 92vw !important;
-                padding: 14px 20px 12px !important;
+                width: max-content !important;
+                max-width: 90vw !important;
+                padding: 12px 18px 10px !important;
             }
             .name-marbella {
-                font-size: 32px !important; /* Escala elegante en celular para que no estire de más */
+                font-size: 30px !important;
+                letter-spacing: 1px !important;
             }
             .book-text {
-                font-size: 10px !important; /* Se ajusta proporcionalmente a una sola línea sin deformar */
-                letter-spacing: 0.5px;
+                font-size: 10px !important;
+                letter-spacing: 0.5px !important;
             }
         }
     </style>
