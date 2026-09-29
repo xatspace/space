@@ -19,7 +19,7 @@
             padding-left: 0;
             overflow: hidden;
             position: relative;
-            background: #2a0b16; /* Color de fondo original y correcto */
+            background: #2a0b16; 
             font-family: 'Montserrat', sans-serif;
             cursor: pointer;
         }
@@ -33,27 +33,6 @@
             background-position: center;
             opacity: 0.9;
             pointer-events: none;
-        }
-
-        @media (max-width: 650px) or (orientation: portrait) {
-            body {
-                justify-content: center;
-                align-items: flex-end;
-                padding-bottom: 30px;
-                background: #1a0a1a; 
-            }
-            .bg-photos {
-                background-image: url('https://xatimg.com/image/zGn2C9hpAAUw.png'); 
-                background-position: center center;
-                opacity: 0.8;
-            }
-            .glass-panel {
-                transform: none !important;
-                max-width: 92% !important;
-            }
-            .book-text {
-                font-size: 12.5px !important; 
-            }
         }
 
         .heart-container {
@@ -78,16 +57,18 @@
             100% { top: 100%; transform: translateX(50px) rotate(360deg); opacity: 0; }
         }
 
+        /* Estilo base y de PC: compacto y elegante al contenido */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.1); /* Efecto cristal transparente original */
-            border-radius: 40px;
-            padding: 22px 30px 18px; 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            max-width: 530px; 
-            width: 95%;
+            background: rgba(25, 5, 12, 0.45); 
+            border-radius: 25px;
+            padding: 18px 28px 15px; 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 183, 197, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            display: inline-block; /* Hace que el cuadro se ajuste exactamente al contenido y no ocupe todo el ancho */
+            width: auto;
+            max-width: 90vw;
             position: relative;
             z-index: 10;
             transform: translateY(-220px); /* Subido exactamente 220px en PC */
@@ -97,7 +78,7 @@
             display: flex;
             align-items: center;
             justify-content: center; 
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             width: 100%;
         }
 
@@ -111,7 +92,7 @@
 
         .name-marbella {
             font-family: 'Cinzel Decorative', serif;
-            font-size: 50px; /* Tamaño grande ajustado */
+            font-size: 50px; 
             color: #ffb7c5; 
             text-transform: uppercase;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
@@ -119,18 +100,19 @@
             z-index: 2;
             text-align: center;
             letter-spacing: 2px;
+            white-space: nowrap; /* Evita que el nombre se corte feo */
         }
 
         .phrase-container {
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 12px;
+            border-top: 1px solid rgba(255, 183, 197, 0.15);
+            padding-top: 10px;
             text-align: center;
-            white-space: nowrap; 
+            white-space: nowrap; /* Mantiene la frase en una sola línea inteligente como en PC */
         }
 
         .book-text {
             font-family: 'Montserrat', sans-serif; 
-            font-size: 13.5px; 
+            font-size: 13px; 
             letter-spacing: 1px;
             color: #fff0f3; 
             font-weight: 700;
@@ -174,9 +156,32 @@
             100% { transform: var(--translateSprout) scale(1.2); opacity: 0; }
         }
 
-        @media (max-width: 500px) {
-            .name-marbella { font-size: 33px; }
-            .glass-panel { padding: 18px 20px; }
+        /* Modo móvil / pantallas verticales: Abajo, pero ajustado al contenido con max-content */
+        @media (max-width: 650px) or (orientation: portrait) {
+            body {
+                justify-content: center;
+                align-items: flex-end; /* Lo manda abajo */
+                padding-bottom: 50px; /* Margen inferior */
+                background: #1a0a1a; 
+            }
+            .bg-photos {
+                background-image: url('https://xatimg.com/image/zGn2C9hpAAUw.png'); 
+                background-position: center center;
+                opacity: 0.8;
+            }
+            .glass-panel {
+                transform: none !important;
+                width: max-content !important; /* Se ajusta de forma inteligente exactamente al tamaño del texto */
+                max-width: 92vw !important;
+                padding: 14px 20px 12px !important;
+            }
+            .name-marbella {
+                font-size: 32px !important; /* Escala elegante en celular para que no estire de más */
+            }
+            .book-text {
+                font-size: 10px !important; /* Se ajusta proporcionalmente a una sola línea sin deformar */
+                letter-spacing: 0.5px;
+            }
         }
     </style>
 </head>
