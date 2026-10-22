@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>隆Feliz Cumplea帽os! 馃帀</title>
-    <!-- Font Google Google Inter y Montserrat -->
+    <title>Feliz Cumpleanos Kane</title>
+    <!-- Fuentes de Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS Reset B谩sico */
+        /* CSS Reset Basico */
         * {
             margin: 0;
             padding: 0;
@@ -41,7 +41,7 @@
             pointer-events: none;
         }
 
-        /* Contenedor principal de la aplicaci贸n */
+        /* Contenedor principal */
         .main-wrapper {
             position: relative;
             z-index: 10;
@@ -53,7 +53,7 @@
             justify-content: center;
         }
 
-        /* Encabezado festivo de cumplea帽os con colores pasteles */
+        /* Encabezado festivo con colores pasteles */
         .header-title {
             font-family: 'Fredoka One', cursive;
             font-size: clamp(2rem, 5vw, 3.2rem);
@@ -80,7 +80,7 @@
         }
 
         /* ========================================================
-           RESPONSIVE CONFIGURATION (PC vs M脫VIL)
+           RESPONSIVE CONFIGURATION (PC vs MOVIL)
            ======================================================== */
 
         /* Marco del reproductor con resplandor pastel interactivo */
@@ -91,13 +91,12 @@
             border-radius: 24px;
             padding: 12px;
             border: 2px solid rgba(255, 255, 255, 0.15);
-            /* Sombra pastel multicapa pulsante */
             animation: pastelGlow 4s ease-in-out infinite alternate;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease;
         }
 
-        /* Animaci贸n suave de los bordes e iluminaci贸n pastel */
+        /* Animacion suave de iluminacion pastel */
         @keyframes pastelGlow {
             0% {
                 border-color: rgba(255, 183, 178, 0.8);
@@ -125,7 +124,7 @@
             }
         }
 
-        /* Contenedor del video con aspecto 16:9 estricto */
+        /* Contenedor del video con aspecto 16:9 */
         .video-box {
             position: relative;
             width: 100%;
@@ -143,7 +142,7 @@
             border-radius: 16px;
         }
 
-        /* CONFIGURACI脫N PC (Ancho m谩ximo fijo de 720px centrado) */
+        /* CONFIGURACION PC (Ancho maximo fijo de 720px centrado) */
         @media screen and (min-width: 768px) {
             .player-card {
                 width: 720px;
@@ -153,7 +152,7 @@
             }
         }
 
-        /* CONFIGURACI脫N M脫VIL (Ancho 100% adaptable con padding) */
+        /* CONFIGURACION MOVIL (Ancho 100% adaptable) */
         @media screen and (max-width: 767px) {
             .player-card {
                 width: 100%;
@@ -171,7 +170,7 @@
             }
         }
 
-        /* Decoraci贸n inferior sutil */
+        /* Texto inferior */
         .footer-tag {
             margin-top: 20px;
             font-size: 0.9rem;
@@ -183,14 +182,14 @@
 </head>
 <body>
 
-    <!-- Canvas de fondo para animaci贸n de globos -->
+    <!-- Canvas de fondo para animacion de globos -->
     <canvas id="balloon-canvas"></canvas>
 
     <!-- Contenedor Principal -->
     <div class="main-wrapper">
-        <h1 class="header-title">隆Feliz Cumplea帽os! 馃帀馃巶</h1>
+        <h1 class="header-title">Feliz Cumpleanos</h1>
 
-        <!-- Contenedor del Video con Marco Iluminado Pastel (Max 720px PC / 100% Movil) -->
+        <!-- Contenedor del Video (Max 720px PC / 100% Movil) -->
         <div class="player-card">
             <div class="video-box">
                 <video 
@@ -205,17 +204,16 @@
             </div>
         </div>
 
-        <div class="footer-tag">鉁?Que pases un d铆a inolvidable 鉁?/div>
+        <div class="footer-tag">Que pases un dia inolvidable</div>
     </div>
 
-    <!-- Script para Lluvia interactiva de Globos Pastel -->
+    <!-- Script para Lluvia de Globos Pastel -->
     <script>
         const canvas = document.getElementById('balloon-canvas');
         const ctx = canvas.getContext('2d');
 
         let width, height;
 
-        // Ajustar el tama帽o del canvas din谩micamente
         function resizeCanvas() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
@@ -224,17 +222,15 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Paleta de colores pastel elegantes
         const pastelColors = [
-            'rgba(255, 183, 178, ', // Rosa pastel
-            'rgba(255, 218, 193, ', // Melocot贸n / Amarillo suave
-            'rgba(226, 240, 203, ', // Verde claro pastel
-            'rgba(181, 234, 215, ', // Menta / Celeste pastel
-            'rgba(199, 206, 234, ', // Lavanda pastel
-            'rgba(255, 204, 229, '  /* Rosa chicle pastel */
+            'rgba(255, 183, 178, ',
+            'rgba(255, 218, 193, ',
+            'rgba(226, 240, 203, ',
+            'rgba(181, 234, 215, ',
+            'rgba(199, 206, 234, ',
+            'rgba(255, 204, 229, '
         ];
 
-        // Clase Globo con f铆sica suave de flotaci贸n vertical
         class Balloon {
             constructor() {
                 this.reset(true);
@@ -243,12 +239,12 @@
             reset(initial = false) {
                 this.x = Math.random() * width;
                 this.y = initial ? Math.random() * height : height + Math.random() * 100 + 20;
-                this.radius = Math.random() * 14 + 16; // Tama帽o del globo
-                this.speed = Math.random() * 0.8 + 0.6; // Velocidad de subida
-                this.swing = Math.random() * 0.03 + 0.01; // Balanceo horizontal
+                this.radius = Math.random() * 14 + 16;
+                this.speed = Math.random() * 0.8 + 0.6;
+                this.swing = Math.random() * 0.03 + 0.01;
                 this.swingOffset = Math.random() * Math.PI * 2;
                 this.colorBase = pastelColors[Math.floor(Math.random() * pastelColors.length)];
-                this.alpha = Math.random() * 0.4 + 0.5; // Transparencia suave
+                this.alpha = Math.random() * 0.4 + 0.5;
                 this.stringLength = this.radius * 2.2;
             }
 
@@ -257,7 +253,6 @@
                 this.swingOffset += this.swing;
                 this.x += Math.sin(this.swingOffset) * 0.6;
 
-                // Si el globo sube m谩s all谩 de la pantalla, reiniciar desde abajo
                 if (this.y + this.radius < -50) {
                     this.reset(false);
                 }
@@ -266,7 +261,7 @@
             draw() {
                 ctx.save();
                 
-                // Hilo del globo
+                // Hilo
                 ctx.beginPath();
                 ctx.moveTo(this.x, this.y + this.radius);
                 ctx.lineTo(this.x + Math.sin(this.swingOffset) * 5, this.y + this.radius + this.stringLength);
@@ -274,13 +269,13 @@
                 ctx.lineWidth = 1.2;
                 ctx.stroke();
 
-                // Cuerpo del globo (forma ovalada)
+                // Globo
                 ctx.beginPath();
                 ctx.ellipse(this.x, this.y, this.radius * 0.85, this.radius, 0, 0, Math.PI * 2);
                 ctx.fillStyle = this.colorBase + this.alpha + ')';
                 ctx.fill();
 
-                // Brillo reflector sobre el globo
+                // Brillo
                 ctx.beginPath();
                 ctx.ellipse(
                     this.x - this.radius * 0.3, 
@@ -292,7 +287,7 @@
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
                 ctx.fill();
 
-                // Nudo del globo
+                // Nudo
                 ctx.beginPath();
                 ctx.moveTo(this.x - 3, this.y + this.radius);
                 ctx.lineTo(this.x + 3, this.y + this.radius);
@@ -305,11 +300,9 @@
             }
         }
 
-        // Crear array de globos seg煤n resoluci贸n
         const balloonCount = Math.floor(Math.min(window.innerWidth / 20, 35));
         const balloons = Array.from({ length: balloonCount }, () => new Balloon());
 
-        // Bucle de animaci贸n del canvas
         function animate() {
             ctx.clearRect(0, 0, width, height);
             balloons.forEach(balloon => {
@@ -319,7 +312,6 @@
             requestAnimationFrame(animate);
         }
 
-        // Iniciar animaci贸n y manejo del autoplay con sonido al hacer click
         window.onload = () => {
             animate();
 
