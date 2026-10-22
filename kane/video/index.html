@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Kane!</title>
+	<link rel="SHORTCUT ICON" href="https://xatimg.com/image/1s6XLwGrrHXa.gif">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Fondo festivo en degrade pastel alegre */
+        body, html {
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%);
+            background-size: 200% 200%;
+            animation: gradientBG 8s ease infinite;
+            color: #2c3e50;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer; /* Indica que toda la pantalla es clickeable */
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Canvas interactivo de globos flotantes */
+        #balloon-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Titulo brillante y colorido */
+        .header-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 4px 15px rgba(216, 27, 96, 0.4), 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 1.5px;
+            animation: bounceTitle 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounceTitle {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        /* Cartel flotante para avisar que se puede hacer clic */
+        .audio-notice {
+            background: rgba(255, 255, 255, 0.9);
+            color: #d81b60;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: pulseNotice 1.5s ease-in-out infinite alternate;
+            transition: opacity 0.5s ease;
+        }
+
+        @keyframes pulseNotice {
+            0% { transform: scale(0.95); }
+            100% { transform: scale(1.05); }
+        }
+
+        .audio-notice.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Card / Marco festivo blanco translúcido con glow pastel */
+        .player-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 14px;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
+            animation: borderGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% {
+                box-shadow: 0 0 25px rgba(255, 182, 193, 0.8), 0 15px 35px rgba(0, 0, 0, 0.15);
+                border-color: #ffb7b2;
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(181, 234, 215, 0.8), 0 15px 35px rgba(0, 0, 0, 0.15);
+                border-color: #b5ead7;
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(199, 206, 234, 0.8), 0 15px 35px rgba(0, 0, 0, 0.15);
+                border-color: #c7ceea;
+            }
+        }
+
+        .video-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 18px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .video-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            border-radius: 18px;
+        }
+
+        /* CONFIGURACION PC (720px centrado) */
+        @media screen and (min-width: 768px) {
+            .player-card {
+                width: 720px;
+                max-width: 720px;
+                margin: 0 auto;
+                padding: 16px;
+            }
+        }
+
+        /* CONFIGURACION MOVIL (100% ancho) */
+        @media screen and (max-width: 767px) {
+            .player-card {
+                width: 100%;
+                max-width: 100%;
+                padding: 8px;
+                border-radius: 20px;
+            }
+
+            .video-box {
+                border-radius: 14px;
+            }
+
+            .video-box video {
+                border-radius: 14px;
+            }
+        }
+
+        .footer-tag {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="balloon-canvas"></canvas>
+
+    <div class="main-wrapper">
+        <h1 class="header-title">¡Feliz Cumpleaños Kane!</h1>
+
+        <div class="audio-notice" id="audioNotice">𝐐𝐔𝐄 𝐋𝐎𝐒 𝐂𝐔𝐌𝐏𝐋𝐀𝐒 𝐅𝐄𝐋𝐈𝐙 𝐐𝐔𝐄 𝐋𝐎𝐒 𝐂𝐔𝐌𝐏𝐋𝐀𝐒 𝐅𝐄𝐋𝐈𝐙
+</div>
+
+        <div class="player-card">
+            <div class="video-box">
+                <video 
+                    id="kaneVideo"
+                    src="https://xatspace.github.io/space/kane/kane.mp4" 
+                    controls 
+                    autoplay 
+                    loop 
+                    playsinline 
+                    muted>
+                    Tu navegador no soporta videos HTML5.
+                </video>
+            </div>
+        </div>
+
+        <div class="footer-tag">Que pases un dia super especial</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('balloon-canvas');
+        const ctx = canvas.getContext('2d');
+        const video = document.getElementById('kaneVideo');
+        const audioNotice = document.getElementById('audioNotice');
+
+        let width, height;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Colores de globos vistosos para fondo claro
+        const balloonColors = [
+            'rgba(255, 99, 132, ',
+            'rgba(54, 162, 235, ',
+            'rgba(255, 206, 86, ',
+            'rgba(75, 192, 192, ',
+            'rgba(153, 102, 255, ',
+            'rgba(255, 159, 64, '
+        ];
+
+        class Balloon {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                this.x = Math.random() * width;
+                this.y = initial ? Math.random() * height : height + Math.random() * 100 + 20;
+                this.radius = Math.random() * 16 + 18;
+                this.speed = Math.random() * 0.9 + 0.7;
+                this.swing = Math.random() * 0.03 + 0.01;
+                this.swingOffset = Math.random() * Math.PI * 2;
+                this.colorBase = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+                this.alpha = Math.random() * 0.3 + 0.6;
+                this.stringLength = this.radius * 2.3;
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.swingOffset += this.swing;
+                this.x += Math.sin(this.swingOffset) * 0.7;
+
+                if (this.y + this.radius < -50) {
+                    this.reset(false);
+                }
+            }
+
+            draw() {
+                ctx.save();
+                
+                // Hilo del globo
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y + this.radius);
+                ctx.lineTo(this.x + Math.sin(this.swingOffset) * 5, this.y + this.radius + this.stringLength);
+                ctx.strokeStyle = 'rgba(100, 100, 100, 0.4)';
+                ctx.lineWidth = 1.2;
+                ctx.stroke();
+
+                // Cuerpo del globo
+                ctx.beginPath();
+                ctx.ellipse(this.x, this.y, this.radius * 0.85, this.radius, 0, 0, Math.PI * 2);
+                ctx.fillStyle = this.colorBase + this.alpha + ')';
+                ctx.fill();
+
+                // Reflejo de luz
+                ctx.beginPath();
+                ctx.ellipse(
+                    this.x - this.radius * 0.3, 
+                    this.y - this.radius * 0.3, 
+                    this.radius * 0.25, 
+                    this.radius * 0.15, 
+                    -Math.PI / 4, 0, Math.PI * 2
+                );
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.fill();
+
+                // Nudo
+                ctx.beginPath();
+                ctx.moveTo(this.x - 3, this.y + this.radius);
+                ctx.lineTo(this.x + 3, this.y + this.radius);
+                ctx.lineTo(this.x, this.y + this.radius + 4);
+                ctx.closePath();
+                ctx.fillStyle = this.colorBase + (this.alpha + 0.1) + ')';
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        const balloonCount = Math.floor(Math.min(window.innerWidth / 18, 40));
+        const balloons = Array.from({ length: balloonCount }, () => new Balloon());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            balloons.forEach(balloon => {
+                balloon.update();
+                balloon.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // Event listener en todo el documento para activar sonido con cualquier clic o toque
+        function enableAudio() {
+            if (video) {
+                video.muted = false;
+                video.play();
+            }
+            if (audioNotice) {
+                audioNotice.classList.add('hidden');
+            }
+            // Remover eventos una vez activado
+            document.removeEventListener('click', enableAudio);
+            document.removeEventListener('touchstart', enableAudio);
+        }
+
+        document.addEventListener('click', enableAudio);
+        document.addEventListener('touchstart', enableAudio);
+
+        window.onload = () => {
+            animate();
+            if (video) {
+                video.play().catch(() => {});
+            }
+        };
+    </script>
+</body>
+</html>
