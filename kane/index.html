@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Reproductor Video Kane Responsive</title>
+    <style>
+        /* CSS Reset Básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Contenedor Principal (100% Pantalla) */
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden; /* Evita cualquier barra de desplazamiento */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Estilo base del Video */
+        .video-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000000;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            outline: none;
+        }
+
+        /* ========================================================
+           ESTILOS PARA COMPUTADORA Y PANTALLAS GRANDES (PC / TV)
+           ======================================================== */
+        @media screen and (min-width: 768px) {
+            .video-container {
+                padding: 0;
+            }
+
+            video {
+                /* Mantiene la proporción del video adaptándose completamente al alto/ancho sin deformarse */
+                object-fit: contain;
+                max-width: 100vw;
+                max-height: 100vh;
+            }
+        }
+
+        /* ========================================================
+           ESTILOS PARA DISPOSITIVOS MÓVILES (TELÉFONOS / TABLETS VERTICALES)
+           ======================================================== */
+        @media screen and (max-width: 767px) {
+            .video-container {
+                width: 100vw;
+                height: 100vh;
+                height: 100dvh; /* Soporte exacto para altura real en navegadores móviles */
+            }
+
+            video {
+                /* En móvil el video se ajusta al 100% del ancho del dispositivo */
+                width: 100%;
+                height: auto;
+                max-height: 100dvh;
+                object-fit: contain;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor del video 100% Pantalla -->
+    <div class="video-container">
+        <video 
+            src="https://xatspace.github.io/space/kane/kane.mp4" 
+            controls 
+            autoplay 
+            loop 
+            muted 
+            playsinline>
+            Tu navegador no soporta reproducción de video HTML5.
+        </video>
+    </div>
+
+    <script>
+        // Intenta reproducir automáticamente con sonido si el navegador lo permite
+        window.addEventListener('DOMContentLoaded', () => {
+            const video = document.querySelector('video');
+            if (video) {
+                video.play().catch(() => {
+                    // Si el navegador bloquea el autoplay con audio, reproduce muteado
+                    video.muted = true;
+                    video.play();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
