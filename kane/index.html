@@ -28,6 +28,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer; /* Indica que toda la pantalla es clickeable */
         }
 
         @keyframes gradientBG {
@@ -73,6 +74,30 @@
         @keyframes bounceTitle {
             0% { transform: translateY(0); }
             100% { transform: translateY(-8px); }
+        }
+
+        /* Cartel flotante para avisar que se puede hacer clic */
+        .audio-notice {
+            background: rgba(255, 255, 255, 0.9);
+            color: #d81b60;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: pulseNotice 1.5s ease-in-out infinite alternate;
+            transition: opacity 0.5s ease;
+        }
+
+        @keyframes pulseNotice {
+            0% { transform: scale(0.95); }
+            100% { transform: scale(1.05); }
+        }
+
+        .audio-notice.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         /* Card / Marco festivo blanco translúcido con glow pastel */
@@ -165,9 +190,12 @@
     <div class="main-wrapper">
         <h1 class="header-title">¡Feliz Cumpleanos Kane!</h1>
 
+        <div class="audio-notice" id="audioNotice">Haz clic en cualquier lugar para activar el sonido</div>
+
         <div class="player-card">
             <div class="video-box">
                 <video 
+                    id="kaneVideo"
                     src="https://xatspace.github.io/space/kane/kane.mp4" 
                     controls 
                     autoplay 
@@ -185,6 +213,8 @@
     <script>
         const canvas = document.getElementById('balloon-canvas');
         const ctx = canvas.getContext('2d');
+        const video = document.getElementById('kaneVideo');
+        const audioNotice = document.getElementById('audioNotice');
 
         let width, height;
 
@@ -287,15 +317,27 @@
             requestAnimationFrame(animate);
         }
 
+        // Event listener en todo el documento para activar sonido con cualquier clic o toque
+        function enableAudio() {
+            if (video) {
+                video.muted = false;
+                video.play();
+            }
+            if (audioNotice) {
+                audioNotice.classList.add('hidden');
+            }
+            // Remover eventos una vez activado
+            document.removeEventListener('click', enableAudio);
+            document.removeEventListener('touchstart', enableAudio);
+        }
+
+        document.addEventListener('click', enableAudio);
+        document.addEventListener('touchstart', enableAudio);
+
         window.onload = () => {
             animate();
-
-            const video = document.querySelector('video');
             if (video) {
-                video.play().catch(() => {
-                    video.muted = true;
-                    video.play();
-                });
+                video.play().catch(() => {});
             }
         };
     </script>
